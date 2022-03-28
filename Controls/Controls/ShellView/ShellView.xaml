@@ -1,0 +1,116 @@
+<UserControl x:Class="Controls.ShellView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300"
+             Background="{DynamicResource Background}">
+    <UserControl.Resources>
+        <ControlTemplate x:Key="PreviewSplitter" TargetType="GridSplitter">
+            <Grid>
+                <Grid x:Name="IsDefaultCanvas" Grid.Column="1" Background="#FFFFFF" Grid.Row="1" Height="7px">
+                    <Rectangle Height="7px" Margin="10,0">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="#00649CE6 "/>
+                                <GradientStop Color="#40649CE6" Offset="0.5"/>
+                                <GradientStop Color="#00649CE6" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Rectangle Height="7px" Margin="10,0">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="#FFFFFFFF"/>
+                                <GradientStop Color="#00FFFFFF" Offset="0.5"/>
+                                <GradientStop Color="#FFFFFFFF" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Grid>
+                <Grid x:Name="IsMouseHoverCanvas" Grid.Column="1" Background="#FFFFFF" Grid.Row="1" Height="7px" Visibility="Collapsed">
+                    <Rectangle Height="7px" Margin="10,0">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="#00E66C00 "/>
+                                <GradientStop Color="#80E66C00" Offset="0.5"/>
+                                <GradientStop Color="#00E66C00" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Rectangle Height="7px" Margin="10,0">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="#FFFFFFFF"/>
+                                <GradientStop Color="#00FFFFFF" Offset="0.5"/>
+                                <GradientStop Color="#FFFFFFFF" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Grid>
+                <Grid x:Name="IsMousePressedCanvas" Grid.Column="1" Background="#FFFFFF" Grid.Row="1" Height="7px" Visibility="Collapsed">
+                    <Rectangle Height="7px" Margin="10,0">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="#00649CE6"/>
+                                <GradientStop Color="#80649CE6" Offset="0.5"/>
+                                <GradientStop Color="#00649CE6" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Rectangle Height="7px" Margin="10,0">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="#FFFFFFFF"/>
+                                <GradientStop Color="#00FFFFFF" Offset="0.5"/>
+                                <GradientStop Color="#FFFFFFFF" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Grid>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="IsDefaultCanvas" Property="Visibility" Value="Collapsed"/>
+                    <Setter TargetName="IsMouseHoverCanvas" Property="Visibility" Value="Visible"/>
+                </Trigger>
+                <Trigger Property="IsDragging" Value="True">
+                    <Setter TargetName="IsDefaultCanvas" Property="Visibility" Value="Collapsed"/>
+                    <Setter TargetName="IsMouseHoverCanvas" Property="Visibility" Value="Collapsed"/>
+                    <Setter TargetName="IsMousePressedCanvas" Property="Visibility" Value="Visible"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <Canvas x:Name="TaskPaneContainer" Margin="8" Width="200px"/>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{Binding PreviewSize, Converter={local:DoubleToGridLengthCOnverter}, Mode=TwoWay}" MaxHeight="580"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Canvas  x:Name="PreviewPaneContainer" ClipToBounds="True">
+                <local:PreviewPaneDefaultControl Width="{Binding ActualWidth, ElementName=PreviewPaneContainer}" Height="{Binding ActualHeight, ElementName=PreviewPaneContainer}" Grid.Row="1"/>
+            </Canvas>
+            <GridSplitter Grid.Row="0" 
+                          x:Name="PreviewPaneSplitter"
+                          Height="7px"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Bottom" 
+                          Template="{DynamicResource PreviewSplitter}"/>
+
+            <Canvas x:Name="ListviewContainer" Grid.Row="1" ClipToBounds="True" Background="White" >
+                <local:FileListview Width="{Binding ActualWidth, ElementName=ListviewContainer}" Height="{Binding ActualHeight, ElementName=ListviewContainer}" Grid.Row="1"/>
+            </Canvas>
+        </Grid>
+
+    </Grid>
+</UserControl>

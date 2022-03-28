@@ -5,7 +5,7 @@ public interface IFileExplorer
     #region Public Properties
     public string? CurrentName { get; set; }
     public string? CurrentPath { get; set; }
-    public ObservableCollection<string>? FileSystemModelsCollection { get; set; }
+    public ObservableCollection<IFileSystemModel>? FileSystemModelsCollection { get; set; }
 
     #endregion
 

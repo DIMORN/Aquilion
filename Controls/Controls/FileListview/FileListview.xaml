@@ -1,0 +1,88 @@
+﻿<local:FileListviewBase x:Class="Controls.FileListview"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+                        xmlns:local="clr-namespace:Controls"
+                        mc:Ignorable="d" 
+                        d:DesignHeight="450" d:DesignWidth="800"
+                        View="Icons">
+    <local:FileListviewBase.Resources>
+        <Style TargetType="ListViewItem">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Border Padding="0" >
+                            <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                                <StackPanel>
+                                    <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
+                                    <ContentPresenter  ContentSource="{TemplateBinding Content}"/>
+                                </StackPanel>
+                            </Border>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </local:FileListviewBase.Resources>
+    <local:FileListviewBase.InputBindings>
+        <KeyBinding Key="Left" Modifiers="Alt"
+                    Command="{Binding MoveBackCommand}"/>
+        <KeyBinding Key="Right" Modifiers="Alt"
+                    Command="{Binding MoveForwardCommand}"/>
+        <KeyBinding Key="Return"
+                    Command="{Binding OpenFileSystemModelCommand}"
+                    CommandParameter="{Binding SelectedModels[0]}"/>
+    </local:FileListviewBase.InputBindings>
+    <ListView Name="IconsListView" ItemsSource="{Binding FileSystemModelsCollection}"
+             Background="Transparent"
+             BorderThickness="0"
+             SelectedIndex="{Binding SelectedItem+1, Mode=TwoWay}">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <StackPanel Orientation="Horizontal">
+                    <Border>
+                        <Grid>
+                            <Image Source="{Binding Extension, Converter={local:FileExtensionToIconConverter}}"/>
+                            <Rectangle x:Name="Selective" Opacity="0.5"/>
+                        </Grid>
+                    </Border>
+                    <StackPanel x:Name="Text" Margin="5,0" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding Name}"/>
+                        <StackPanel x:Name="AdditionalText" TextElement.Foreground="DimGray">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Type:"/>
+                                <TextBlock Margin="4,0" Text="{Binding Extension}"/>
+                            </StackPanel>
+                            <StackPanel x:Name="Size" Orientation="Horizontal">
+                                <TextBlock Text="Size:"/>
+                                <TextBlock Margin="4,0" Text="{Binding Size}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+                <DataTemplate.Triggers>
+                    <DataTrigger Binding="{Binding IsSelected,RelativeSource={RelativeSource AncestorType=ListViewItem}}" Value="True">
+                        <Setter TargetName="Selective" Property="Fill" Value="#83B6EA"/>
+                        <Setter TargetName="Text" Property="Background" Value="#83B6EA"/>
+                        <Setter TargetName="Text" Property="TextElement.Foreground" Value="White"/>
+                        <Setter TargetName="AdditionalText" Property="TextElement.Foreground" Value="White"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Size}" Value="{x:Null}">
+                        <Setter TargetName="Size" Property="Visibility" Value="Collapsed"/>
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+        <b:Interaction.Triggers>
+            <b:EventTrigger EventName="MouseDoubleClick">
+                <b:InvokeCommandAction Command="{Binding OpenFileSystemModelCommand}"
+                                       CommandParameter="{Binding SelectedModels[0]}"/>
+            </b:EventTrigger>
+        </b:Interaction.Triggers>
+    </ListView>
+</local:FileListviewBase>
