@@ -12,7 +12,7 @@ namespace Shared
             FullName = fileSystemInfo.Name;
             Extension = fileSystemInfo.DriveType.ToString().ToUpper();
             
-            Size = LengthLongToString(fileSystemInfo.TotalSize);
+            Size = fileSystemInfo.IsReady ? LengthLongToString(fileSystemInfo.TotalSize) : "0 B";
             PropertyChanged += selected;
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Service.Storage;
 
 namespace Shared
 {
@@ -8,7 +9,7 @@ namespace Shared
         {
             Name = storageObject.Name;
             FullName = storageObject.FullName;
-            Extension = storageObject.Type switch
+            Extension = storageObject.StorageObjectType switch
             {
                 StorageObjectType.Folder => "Folder",
                 StorageObjectType.DocumentsFolder => "Documents Folder",

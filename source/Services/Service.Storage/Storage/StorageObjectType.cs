@@ -1,4 +1,4 @@
-﻿namespace Shared
+﻿namespace Service.Storage
 {
     public enum StorageObjectType
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using LiteDB;
 
-namespace Shared
+namespace Service.Storage
 {
     public static class Storage
     {
@@ -21,7 +21,7 @@ namespace Shared
 
         public static LiteDatabase DataBase;
 
-        public static ILiteCollection<StorageObject> GenericObjectsCollection;
+        public static LiteCollection<StorageObject> GenericObjectsCollection;
         #endregion
 
         #region Static Constructor
@@ -29,6 +29,7 @@ namespace Shared
         static Storage()
         {
             InitializeStrings();
+            InitializeDataBase();
         }
         #endregion
 
@@ -45,7 +46,7 @@ namespace Shared
         private static void InitializeDataBase()
         {
             DataBase = new LiteDatabase($"{AquilionAppLocalDirectory}\\Storage.ldb");
-            GenericObjectsCollection = DataBase.GetCollection<StorageObject>("GenericObjectsCollection");
+            GenericObjectsCollection = (LiteCollection<StorageObject>) DataBase.GetCollection<StorageObject>("GenericObjectsCollection");
 
             GenericObjectsCollection.Upsert("UserFolder",
                 new StorageObject(

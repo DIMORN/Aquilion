@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.IO;
+using Service.Storage;
 
 namespace Shared
 {
@@ -17,6 +18,7 @@ namespace Shared
                 DirectoryInfo => new DirectoryModel((DirectoryInfo)fileSystemInfo, selected),
                 FileInfo => new FileModel((FileInfo)fileSystemInfo, selected),
                 DriveInfo => new DriveModel((DriveInfo)fileSystemInfo, selected),
+                StorageObject => new StorageObjectModel((StorageObject) fileSystemInfo, selected)
             };
         }
 
