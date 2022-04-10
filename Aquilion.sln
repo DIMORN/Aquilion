@@ -7,17 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "source", "source", "{DB317E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{0B55A96F-CE73-4AFE-919E-650B3543D0C9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aquilion.Explorer", "Aquilion.Explorer", "{79E569C1-8186-4535-A81D-F7C2F35453FE}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "source\Aquilion.Explorer\Application\Application.csproj", "{E61FD409-80DB-4377-8AB0-81B5F7BACC11}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Controls", "Controls", "{E42DF7BB-2069-446D-9FCC-D320D87BBA7F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controls.ShellView", "source\Aquilion.Explorer\Controls\Controls.ShellView\Controls.ShellView.csproj", "{C3432B11-5E32-4A2B-AD31-A38DB59F85F8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "source\Aquilion.Explorer\Common\Common.csproj", "{D6D18B70-3546-4DEE-85B9-4021DBA79170}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aquilion.Controls", "source\Aquilion.Controls\Aquilion.Controls.csproj", "{2DBD00C9-2726-4B9E-90FF-0E8F9127874D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "source\Shared\Shared.csproj", "{A40AEC63-3FF6-4101-A42F-1ADA548E094B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,33 +15,16 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E61FD409-80DB-4377-8AB0-81B5F7BACC11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E61FD409-80DB-4377-8AB0-81B5F7BACC11}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E61FD409-80DB-4377-8AB0-81B5F7BACC11}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E61FD409-80DB-4377-8AB0-81B5F7BACC11}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C3432B11-5E32-4A2B-AD31-A38DB59F85F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C3432B11-5E32-4A2B-AD31-A38DB59F85F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C3432B11-5E32-4A2B-AD31-A38DB59F85F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C3432B11-5E32-4A2B-AD31-A38DB59F85F8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D6D18B70-3546-4DEE-85B9-4021DBA79170}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D6D18B70-3546-4DEE-85B9-4021DBA79170}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D6D18B70-3546-4DEE-85B9-4021DBA79170}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D6D18B70-3546-4DEE-85B9-4021DBA79170}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2DBD00C9-2726-4B9E-90FF-0E8F9127874D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2DBD00C9-2726-4B9E-90FF-0E8F9127874D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2DBD00C9-2726-4B9E-90FF-0E8F9127874D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2DBD00C9-2726-4B9E-90FF-0E8F9127874D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A40AEC63-3FF6-4101-A42F-1ADA548E094B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A40AEC63-3FF6-4101-A42F-1ADA548E094B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A40AEC63-3FF6-4101-A42F-1ADA548E094B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A40AEC63-3FF6-4101-A42F-1ADA548E094B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{79E569C1-8186-4535-A81D-F7C2F35453FE} = {DB317E0F-78F0-40A8-BCEF-BC140975C2EA}
-		{E61FD409-80DB-4377-8AB0-81B5F7BACC11} = {79E569C1-8186-4535-A81D-F7C2F35453FE}
-		{E42DF7BB-2069-446D-9FCC-D320D87BBA7F} = {79E569C1-8186-4535-A81D-F7C2F35453FE}
-		{C3432B11-5E32-4A2B-AD31-A38DB59F85F8} = {E42DF7BB-2069-446D-9FCC-D320D87BBA7F}
-		{D6D18B70-3546-4DEE-85B9-4021DBA79170} = {79E569C1-8186-4535-A81D-F7C2F35453FE}
-		{2DBD00C9-2726-4B9E-90FF-0E8F9127874D} = {DB317E0F-78F0-40A8-BCEF-BC140975C2EA}
+		{A40AEC63-3FF6-4101-A42F-1ADA548E094B} = {DB317E0F-78F0-40A8-BCEF-BC140975C2EA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DBDD7DC9-76AE-4D8F-8370-FEC25D42F9BB}
