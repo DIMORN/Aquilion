@@ -43,7 +43,7 @@ namespace ExplorerApp
                 var win = new NavigationWindow();
                 win.ToolBar = new NavigationWindowToolBar();
                 win.Content = new ShellView();
-                win.DataContext = new ExplorerViewModel().CurrentViewModel;
+                win.DataContext = new ExplorerViewModel();
                 win.Show();
             });
         }

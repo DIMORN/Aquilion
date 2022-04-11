@@ -23,9 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Controls", "source\Controls
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plex", "..\..\..\..\AppData\Local\Aquilion\Resources\Themes\Plex\Plex.csproj", "{5E88237A-28E3-4B32-A9AA-494AED474F13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Explorer.Controls", "source\Explorer\Explorer.Controls\Explorer.Controls.csproj", "{5AD9A916-409A-4E90-A5B4-605FCE631EF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Explorer.Controls", "source\Explorer\Explorer.Controls\Explorer.Controls.csproj", "{5AD9A916-409A-4E90-A5B4-605FCE631EF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Explorer.Common", "source\Explorer\Explorer.Common\Explorer.Common.csproj", "{02258871-3259-4F94-94EB-BA92768B32BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Explorer.Common", "source\Explorer\Explorer.Common\Explorer.Common.csproj", "{02258871-3259-4F94-94EB-BA92768B32BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Plugins", "source\Services\Service.Plugins\Service.Plugins.csproj", "{E2B194F5-E4FD-4356-AF25-8E58E4BC7BFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +67,10 @@ Global
 		{02258871-3259-4F94-94EB-BA92768B32BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02258871-3259-4F94-94EB-BA92768B32BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02258871-3259-4F94-94EB-BA92768B32BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2B194F5-E4FD-4356-AF25-8E58E4BC7BFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2B194F5-E4FD-4356-AF25-8E58E4BC7BFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2B194F5-E4FD-4356-AF25-8E58E4BC7BFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2B194F5-E4FD-4356-AF25-8E58E4BC7BFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,6 +86,7 @@ Global
 		{5E88237A-28E3-4B32-A9AA-494AED474F13} = {0B55A96F-CE73-4AFE-919E-650B3543D0C9}
 		{5AD9A916-409A-4E90-A5B4-605FCE631EF3} = {9F9F4080-04F3-455B-90F4-0AD7523939D8}
 		{02258871-3259-4F94-94EB-BA92768B32BE} = {9F9F4080-04F3-455B-90F4-0AD7523939D8}
+		{E2B194F5-E4FD-4356-AF25-8E58E4BC7BFD} = {0B8BE90B-45B5-406E-9DE5-E264C4523FC7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DBDD7DC9-76AE-4D8F-8370-FEC25D42F9BB}

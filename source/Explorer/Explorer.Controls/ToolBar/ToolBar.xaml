@@ -7,9 +7,12 @@
              mc:Ignorable="d" 
              Height="Auto">
     <Grid>
-        <StackPanel TextElement.Foreground="White">
-            <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14"/>
-            <TextBlock Text="{Binding FullName}" FontSize="10"/>
+        <StackPanel HorizontalAlignment="Center" TextElement.Foreground="White">
+            <StackPanel.Effect>
+                <DropShadowEffect ShadowDepth="1" BlurRadius="1"/>
+            </StackPanel.Effect>
+            <TextBlock Text="{Binding CurrentViewModel.Name}" FontWeight="Bold" FontSize="14"/>
+            <TextBlock Text="{Binding CurrentViewModel.FullName}" FontSize="10"/>
         </StackPanel>    
     </Grid>
 </UserControl>
