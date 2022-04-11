@@ -1,6 +1,6 @@
 ﻿namespace Service.Navigation
 {
-    public class NavigationModelBase
+    public class NavigationModelBase : BaseViewModel
     {
         public string Name { get; set; }
         public string FullName { get; set; }

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Explorer.Controls"
+             xmlns:list="clr-namespace:Explorer.Controls.Listview"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              DataContext="{Binding CurrentViewModel}"
@@ -21,21 +22,8 @@
                 <RowDefinition Height="250"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <ListBox Grid.Row="1" BorderThickness="0"
-                     ItemsSource="{Binding Collection}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Margin="8" Orientation="Horizontal">
-                            <Rectangle Fill="Red"
-                                       Width="24"
-                                       Height="{Binding ActualWidth,RelativeSource={RelativeSource Self}}"/>
-                            <TextBlock Text="{Binding Name}"
-                                       VerticalAlignment="Center"
-                                       Margin="8"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+            <list:Listview Grid.Row="1" BorderThickness="0">
+            </list:Listview>
         </Grid>
     </Grid>
 </UserControl>

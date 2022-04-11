@@ -4,15 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Explorer.Controls.ToolBar"
+             xmlns:sh="clr-namespace:Shared;assembly=Shared"
+             xmlns:controls="clr-namespace:Controls;assembly=Controls"
              mc:Ignorable="d" 
              Height="Auto">
     <Grid>
-        <StackPanel HorizontalAlignment="Center" TextElement.Foreground="White">
-            <StackPanel.Effect>
-                <DropShadowEffect ShadowDepth="1" BlurRadius="1"/>
-            </StackPanel.Effect>
-            <TextBlock Text="{Binding CurrentViewModel.Name}" FontWeight="Bold" FontSize="14"/>
-            <TextBlock Text="{Binding CurrentViewModel.FullName}" FontSize="10"/>
-        </StackPanel>    
+        <Menu ItemsSource="{Binding Menu}"/>
     </Grid>
 </UserControl>

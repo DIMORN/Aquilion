@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Services\Service.Navigation\Service.Navigation.csproj" />
+    <ProjectReference Include="..\..\Services\Service.Plugins\Service.Plugins.csproj" />
     <ProjectReference Include="..\..\Services\Service.Storage\Service.Storage.csproj" />
     <ProjectReference Include="..\..\Shared\Shared.csproj" />
   </ItemGroup>

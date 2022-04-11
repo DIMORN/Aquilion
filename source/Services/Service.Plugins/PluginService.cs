@@ -13,7 +13,7 @@ namespace Service.Plugins
         static PluginService()
         {
             PluginsDirectory =
-                $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\\Aquilion\\Plugins\\";
+                $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\Aquilion\\Plugins\\";
 
             LoadPlugins();
         }

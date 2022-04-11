@@ -2,17 +2,19 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using Prism.Commands;
 using Service.Navigation;
 using Service.Storage;
 using Shared;
+using BaseViewModel = Shared.BaseViewModel;
 
 namespace Explorer.Common
 {
     public class ShellViewViewModel : NavigationModelBase
     {
-
+        public object CurrentPresenter { get; set; }
     }
     public class FileExplorerViewModel : ShellViewViewModel
     {
