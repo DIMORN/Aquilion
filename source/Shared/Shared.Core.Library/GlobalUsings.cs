@@ -1,0 +1,16 @@
+﻿global using System;
+global using System.Collections.Generic;
+global using System.Collections.ObjectModel;
+global using System.Linq;
+global using System.Text;
+global using System.Threading.Tasks;
+global using Shared.Core.Library.FileSystem;
+global using System.ComponentModel;
+global using Shared.Locale;
+global using Services.Navigation;
+global using Prism.Mvvm;
+global using Prism.Commands;
+global using LiteDB;
+global using Services.Storage;
+global using Shared.Core.Library.Selectable;
+global using System.Data;
