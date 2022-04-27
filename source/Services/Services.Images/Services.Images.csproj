@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Shared.Core.Library\Shared.Core.Library.csproj" />
+    <ProjectReference Include="..\..\Shared\Shared.Locale\Shared.Locale.csproj" />
+    <ProjectReference Include="..\Services.Storage\Services.Storage.csproj" />
+  </ItemGroup>
+
+</Project>

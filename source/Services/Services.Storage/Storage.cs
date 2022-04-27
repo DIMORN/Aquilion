@@ -12,6 +12,11 @@ public static class Storage
     /// Physical directory of User '%SystemDrive%/Users/{ActiveUser}'
     /// </summary>
     public static string UserDirectory;
+
+    /// <summary>
+    /// Physical directory of Aquilion data '%SystemDrive%/Users/{ActiveUser}/AppData/Local/Aquilion/External'
+    /// </summary>
+    public static string ExternalServicesDirectory;
     #endregion
 
     #region User Libraries Physical Directories
@@ -49,6 +54,8 @@ public static class Storage
     public static ILiteCollection<StorageObject> GenericCollection;
     public static ILiteCollection<StorageObject> DirectoriesCollection;
     public static ILiteCollection<StorageObject> FilesCollection;
+
+    public static ILiteCollection<StorageObject> ExternalCollection;
     #endregion
 
     #region Static Constructor
@@ -65,6 +72,7 @@ public static class Storage
     {
         ApplicationLocalDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Aquilion";
         UserDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        ExternalServicesDirectory = ApplicationLocalDirectory + "\\External";
 
         MyDocumentsDirectory = $"{UserDirectory}\\Documents";
         MyMusicDirectory = $"{UserDirectory}\\Music";
@@ -79,6 +87,9 @@ public static class Storage
     }
     private static async void InitializeCollections()
     {
+        ExternalCollection = DataBase.GetCollection<StorageObject>("External");
+        InitializeExternalCollection();
+
         GenericCollection = DataBase.GetCollection<StorageObject>("Generic");
         InitializeGenericCollection();
 
@@ -93,6 +104,7 @@ public static class Storage
         {
             InitializeFilesCollection();
         });
+
         
     }
     private static void InitializeGenericCollection()
@@ -219,6 +231,20 @@ public static class Storage
                     Name = file.Name,
                     FullName = file.FullName,
                     Type = StorageObjectType.Folder
+                });
+            }
+        }
+    }
+    private static void InitializeExternalCollection()
+    {
+        foreach(var dll in new DirectoryInfo(ExternalServicesDirectory).EnumerateFiles(".dll", SearchOption.AllDirectories))
+        {
+            if(dll.Directory.Name.ToLower() == "themes")
+            {
+                ExternalCollection.Upsert($"Theme.{dll.Name}", new StorageObject
+                {
+                    Name = dll.Name,
+                    FullName = dll.FullName
                 });
             }
         }

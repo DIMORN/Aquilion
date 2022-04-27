@@ -16,6 +16,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Services\Services.Storage\Services.Storage.csproj" />
+    <ProjectReference Include="..\..\Services\Services.Themes\Services.Themes.csproj" />
+    <ProjectReference Include="..\..\Services\WPF\Services.WPF\Services.WPF.csproj" />
     <ProjectReference Include="..\..\Shared\Shared.Core.Library\Shared.Core.Library.csproj" />
     <ProjectReference Include="..\..\Shared\Shared.Locale\Shared.Locale.csproj" />
   </ItemGroup>

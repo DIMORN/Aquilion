@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:lv="clr-namespace:ExplorerApp.Controls.Listview">
+    <ControlTemplate x:Key="ShellView" TargetType="UserControl">
+        <Border>
+            <DockPanel LastChildFill="True">
+                <Border Background="Green"
+                        Width="200"
+                        Padding="10"
+                        DockPanel.Dock="Left"/>
+                <Border Background="Red"
+                        DockPanel.Dock="Right"
+                        Padding="8,50,0,0">
+                    <lv:Listview/>
+                </Border>
+            </DockPanel>
+        </Border>
+    </ControlTemplate>
+</ResourceDictionary>
