@@ -14,4 +14,5 @@ public class StorageObject
     /// Type of object
     /// </summary>
     public StorageObjectType? Type { get; set; }
+    public IList<StorageObject>? Children { get; set; }
 }

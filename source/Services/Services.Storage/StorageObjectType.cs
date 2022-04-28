@@ -55,5 +55,15 @@ public enum StorageObjectType
     /// <summary>
     /// Computer object type
     /// </summary>
-    Computer
+    Computer,
+
+    /// <summary>
+    /// External library object type
+    /// </summary>
+    ExternalLib,
+
+    /// <summary>
+    /// System object type
+    /// </summary>
+    SystemObject
 }

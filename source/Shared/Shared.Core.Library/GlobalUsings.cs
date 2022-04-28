@@ -14,3 +14,4 @@ global using LiteDB;
 global using Services.Storage;
 global using Shared.Core.Library.Selectable;
 global using System.Data;
+global using Shared.Core.Library.Menu;

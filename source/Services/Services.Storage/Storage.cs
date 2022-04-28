@@ -56,6 +56,7 @@ public static class Storage
     public static ILiteCollection<StorageObject> FilesCollection;
 
     public static ILiteCollection<StorageObject> ExternalCollection;
+    public static ILiteCollection<StorageObject> SystemCollection;
     #endregion
 
     #region Static Constructor
@@ -64,6 +65,7 @@ public static class Storage
         InitializeStrings();
         InitializeDataBase();
         InitializeCollections();
+        InitializeSystemCollection();
     }
     #endregion
 
@@ -87,6 +89,9 @@ public static class Storage
     }
     private static async void InitializeCollections()
     {
+        SystemCollection = DataBase.GetCollection<StorageObject>("System");
+        InitializeSystemCollection();
+
         ExternalCollection = DataBase.GetCollection<StorageObject>("External");
         InitializeExternalCollection();
 
@@ -244,10 +249,131 @@ public static class Storage
                 ExternalCollection.Upsert($"Theme.{dll.Name}", new StorageObject
                 {
                     Name = dll.Name,
-                    FullName = dll.FullName
+                    FullName = dll.FullName,
+                    Type = StorageObjectType.ExternalLib
                 });
             }
         }
+    }
+    private static void InitializeSystemCollection()
+    {
+        //SystemCollection.Upsert("ExplorerMenu.Items.TopLevel.File", new StorageObject
+        //{
+        //    Name = "File",
+        //    FullName = "ExplorerMenu.Items.TopLevel.File",
+        //    Type = StorageObjectType.SystemObject,
+        //    Children = new List<StorageObject>
+        //    {
+        //        new StorageObject
+        //        {
+        //            Name = "Open",
+        //            FullName = "ExplorerMenu.Items.TopLevel.File.Children.Items",
+        //            Type = StorageObjectType.SystemObject,
+        //        },
+        //        new StorageObject
+        //        {
+        //            Name = "Rename",
+        //            FullName = "ExplorerMenu.Items.TopLevel.File.Children.Items",
+        //            Type = StorageObjectType.SystemObject,
+        //        },
+        //        new StorageObject
+        //        {
+        //            Name = "Exit",
+        //            FullName = "ExplorerMenu.Items.TopLevel.File.Children.Items",
+        //            Type = StorageObjectType.SystemObject,
+        //        }
+        //    }
+        //});
+        //SystemCollection.Upsert("ExplorerMenu.Items.TopLevel.Edit", new StorageObject
+        //{
+        //    Name = "Edit",
+        //    FullName = "ExplorerMenu.Items.TopLevel.Edit",
+        //    Type = StorageObjectType.SystemObject,
+        //    Children = new List<StorageObject>
+        //    {
+        //        new StorageObject
+        //        {
+        //            Name = "Copy",
+        //            FullName = "ExplorerMenu.Items.TopLevel.Edit.Children.Items",
+        //            Type = StorageObjectType.SystemObject,
+        //        },
+        //        new StorageObject
+        //        {
+        //            Name = "Cut",
+        //            FullName = "ExplorerMenu.Items.TopLevel.Edit.Children.Items",
+        //            Type = StorageObjectType.SystemObject,
+        //        },
+        //        new StorageObject
+        //        {
+        //            Name = "Paste",
+        //            FullName = "ExplorerMenu.Items.TopLevel.Edit.Children.Items",
+        //            Type = StorageObjectType.SystemObject,
+        //        }
+        //    }
+        //});
+        //SystemCollection.Upsert("ExplorerMenu.Items.TopLevel.View", new StorageObject
+        //{
+        //    Name = "View",
+        //    FullName = "ExplorerMenu.Items.TopLevel.View",
+        //    Type = StorageObjectType.SystemObject,
+        //    Children = new List<StorageObject>
+        //    {
+        //        new StorageObject
+        //        {
+        //            Name = "Preview",
+        //            FullName = "ExplorerMenu.Items.TopLevel.View.Children.Items.Checkable",
+        //            Type = StorageObjectType.SystemObject,
+        //        },
+        //        new StorageObject
+        //        {
+        //            Name = "Icons",
+        //            FullName = "ExplorerMenu.Items.TopLevel.View.Children.Items.Checkable.SingleCheck.Group.View",
+        //            Type = StorageObjectType.SystemObject,
+        //        },
+        //        new StorageObject
+        //        {
+        //            Name = "Details",
+        //            FullName = "ExplorerMenu.Items.TopLevel.View.Children.Items.Checkable.SingleCheck.Group.View",
+        //            Type = StorageObjectType.SystemObject,
+        //        }
+        //    }
+        //});
+        //SystemCollection.Upsert("ExplorerMenu.Items.TopLevel.Favorites", new StorageObject
+        //{
+        //    Name = "Favorites",
+        //    FullName = "ExplorerMenu.Items.TopLevel.Favorites",
+        //    Type = StorageObjectType.SystemObject
+        //});
+        //SystemCollection.Upsert("ExplorerMenu.Items.TopLevel.Tools", new StorageObject
+        //{
+        //    Name = "Tools",
+        //    FullName = "ExplorerMenu.Items.TopLevel.Tools",
+        //    Type = StorageObjectType.SystemObject,
+        //    Children = new List<StorageObject>
+        //    {
+        //        new StorageObject
+        //        {
+        //            Name = "Folder Options",
+        //            FullName = "ExplorerMenu.Items.TopLevel.Tools.Children.Items",
+        //            Type = StorageObjectType.SystemObject,
+        //        }
+        //    }
+        //});
+        //SystemCollection.Upsert("ExplorerMenu.Items.TopLevel.Help", new StorageObject
+        //{
+        //    Name = "Help",
+        //    FullName = "ExplorerMenu.Items.TopLevel.Help",
+        //    Type = StorageObjectType.SystemObject,
+        //    Children = new List<StorageObject>
+        //    {
+        //        new StorageObject
+        //        {
+        //            Name = "About Explorer",
+        //            FullName = "ExplorerMenu.Items.TopLevel.Help.Children.Items",
+        //            Type = StorageObjectType.SystemObject,
+        //        }
+        //    }
+        //});
     }
     #endregion
 }
