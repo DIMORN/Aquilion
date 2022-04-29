@@ -11,10 +11,18 @@ public partial class App : Application
             {
                 Source = new Uri("pack://application:,,,/ExplorerApp;component/Generic/Generic.xaml")
             });
+            Current.Resources.MergedDictionaries.Add(new ResourceDictionary
+            {
+                Source = new Uri($"pack://application:,,,/{ThemeLibraryLoader.DefaultThemeAssembly.FullName};component/Generic.xaml")
+            });
         }
         else
         {
             var a = Assembly.Load(ThemeLibraryLoader.ThemeLibrariesList.First().Assembly.FullName);
+            Current.Resources.MergedDictionaries.Add(new ResourceDictionary
+            {
+                Source = new Uri("pack://application:,,,/ExplorerApp;component/Generic/Generic.xaml")
+            });
             Current.Resources.MergedDictionaries.Add(new ResourceDictionary
             {
                 Source = new Uri($"pack://application:,,,/{a.FullName};component/Generic/Generic.xaml")

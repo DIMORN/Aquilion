@@ -5,10 +5,6 @@ VisualStudioVersion = 17.2.32414.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{0B55A96F-CE73-4AFE-919E-650B3543D0C9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plex", "..\..\..\..\AppData\Local\Aquilion\Resources\Themes\Plex\Plex.csproj", "{5E88237A-28E3-4B32-A9AA-494AED474F13}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Listview.Presenter.Icons", "..\..\..\..\AppData\Local\Aquilion\Plugins\Listview.Presenter.Icons\Listview.Presenter.Icons.csproj", "{B9107F51-ABB5-4874-916C-EB2DE58F89E3}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "source", "source", "{72CA0908-5210-4591-B6B3-A9EFF7D28E21}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{43B4C379-8D8B-40E3-9DFC-8B686809C6F5}"
@@ -27,13 +23,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Application
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExplorerApp", "source\Applications\ExplorerApp\ExplorerApp.csproj", "{702EA95A-CC00-4DBA-852F-054B045FF16B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Themes", "source\Services\Services.Themes\Services.Themes.csproj", "{24160A76-9E4D-4374-B123-43D29DE95CE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.Themes", "source\Services\Services.Themes\Services.Themes.csproj", "{24160A76-9E4D-4374-B123-43D29DE95CE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Images", "source\Services\Services.Images\Services.Images.csproj", "{F2F46DC5-87A4-47B6-9D0B-0FB430022CD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.Images", "source\Services\Services.Images\Services.Images.csproj", "{F2F46DC5-87A4-47B6-9D0B-0FB430022CD9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WPF", "WPF", "{B7016EFA-3E35-439F-B153-C8D51CA76A99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.WPF", "source\Services\WPF\Services.WPF\Services.WPF.csproj", "{A434225D-5D4E-46D1-A6AD-A2764FD2C54E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.WPF", "source\Services\WPF\Services.WPF\Services.WPF.csproj", "{A434225D-5D4E-46D1-A6AD-A2764FD2C54E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Classic", "data\Plex\Classic.csproj", "{38D75731-7E82-4FE2-87BE-2FDDCAA0A944}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,14 +39,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5E88237A-28E3-4B32-A9AA-494AED474F13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5E88237A-28E3-4B32-A9AA-494AED474F13}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5E88237A-28E3-4B32-A9AA-494AED474F13}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5E88237A-28E3-4B32-A9AA-494AED474F13}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B9107F51-ABB5-4874-916C-EB2DE58F89E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B9107F51-ABB5-4874-916C-EB2DE58F89E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B9107F51-ABB5-4874-916C-EB2DE58F89E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B9107F51-ABB5-4874-916C-EB2DE58F89E3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5DD084B1-9BAA-4B45-B9F1-108185457DE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5DD084B1-9BAA-4B45-B9F1-108185457DE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DD084B1-9BAA-4B45-B9F1-108185457DE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -81,13 +71,15 @@ Global
 		{A434225D-5D4E-46D1-A6AD-A2764FD2C54E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A434225D-5D4E-46D1-A6AD-A2764FD2C54E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A434225D-5D4E-46D1-A6AD-A2764FD2C54E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38D75731-7E82-4FE2-87BE-2FDDCAA0A944}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38D75731-7E82-4FE2-87BE-2FDDCAA0A944}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38D75731-7E82-4FE2-87BE-2FDDCAA0A944}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38D75731-7E82-4FE2-87BE-2FDDCAA0A944}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{5E88237A-28E3-4B32-A9AA-494AED474F13} = {0B55A96F-CE73-4AFE-919E-650B3543D0C9}
-		{B9107F51-ABB5-4874-916C-EB2DE58F89E3} = {0B55A96F-CE73-4AFE-919E-650B3543D0C9}
 		{43B4C379-8D8B-40E3-9DFC-8B686809C6F5} = {72CA0908-5210-4591-B6B3-A9EFF7D28E21}
 		{5DD084B1-9BAA-4B45-B9F1-108185457DE2} = {43B4C379-8D8B-40E3-9DFC-8B686809C6F5}
 		{D8721826-B835-418A-A0B4-7F81B3071195} = {43B4C379-8D8B-40E3-9DFC-8B686809C6F5}
@@ -100,6 +92,7 @@ Global
 		{F2F46DC5-87A4-47B6-9D0B-0FB430022CD9} = {6A7A9950-B483-4E56-B69A-677577067053}
 		{B7016EFA-3E35-439F-B153-C8D51CA76A99} = {6A7A9950-B483-4E56-B69A-677577067053}
 		{A434225D-5D4E-46D1-A6AD-A2764FD2C54E} = {B7016EFA-3E35-439F-B153-C8D51CA76A99}
+		{38D75731-7E82-4FE2-87BE-2FDDCAA0A944} = {0B55A96F-CE73-4AFE-919E-650B3543D0C9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DBDD7DC9-76AE-4D8F-8370-FEC25D42F9BB}
