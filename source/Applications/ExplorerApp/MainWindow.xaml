@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ExplorerApp"
         xmlns:controls="clr-namespace:ExplorerApp.Controls"
+        xmlns:tb="clr-namespace:ExplorerApp.Controls.ToolBar"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="450" Width="800"
         FontFamily="Tahoma">
-    <controls:ShellView/>
+    <DockPanel LastChildFill="True">
+        <tb:ToolBar DockPanel.Dock="Top"/>
+        <controls:ShellView/>
+    </DockPanel>
 </Window>

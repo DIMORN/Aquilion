@@ -6,7 +6,7 @@ public static class ThemeLibraryLoader
     public static readonly Assembly DefaultThemeAssembly;
     static ThemeLibraryLoader()
     {
-        DefaultThemeAssembly = Assembly.LoadFile("/Classic.dll");
+        DefaultThemeAssembly = Assembly.LoadFile($"{Storage.Storage.ExternalServicesDirectory}/Themes/Plex/bin/debug/net6.0-windows/Classic.dll");
         ThemeLibrariesList = new List<ThemeObject>();
         //foreach(var themelib in Storage.Storage.ExternalCollection.FindAll())
         //{

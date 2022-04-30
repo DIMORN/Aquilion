@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\data\Plex\Classic.csproj" />
     <ProjectReference Include="..\Services.Storage\Services.Storage.csproj" />
   </ItemGroup>
 
