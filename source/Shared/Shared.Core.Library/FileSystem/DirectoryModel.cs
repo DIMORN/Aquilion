@@ -11,7 +11,9 @@ public sealed class DirectoryModel : FileSystemModel
 
         Extension = Locale.Locale.FileSystem_Extension_Directory;
 
-        Selected += selected;
+        IsSelected = false;
+
+        PropertyChanged += selected;
     }
 }
 

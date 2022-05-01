@@ -1,31 +1,57 @@
 ﻿namespace Shared.Core.Library.Explorer;
 
-public sealed class FileExplorerViewModel : NavigationObject, IFileExplorer
+public sealed class FileExplorerViewModel : BindableBase, IFileExplorer
 {
+    #region Private Methods
+    private readonly ExplorerViewModel _explorerViewModel;
+    #endregion
+
     #region Public Properties
+    public string Path { get; set; }
+    public string Name { get; set; }
     public ObservableCollection<FileSystemModel>? FileSystemCollection { get; set; } =
         new();
     public ObservableCollection<FileSystemModel>? SelectedModels { get; set; } =
         new();
+    public bool? CheckableListItems { get; set; }
+
+    public ObservableCollection<MenuItemViewModel> Tasks { get; set; } =
+        new();
     #endregion
 
     #region Constructor
-    public FileExplorerViewModel(string? path = null, string? name = null) : base(path, name)
+    public FileExplorerViewModel(ExplorerViewModel explorerViewModel, string? path = null, string? name = null) 
     {
-        
+        _explorerViewModel = explorerViewModel;
+
+        OpenCommand = new DelegateCommand(OnOpen);
     }
-
     
+    #endregion
 
+    #region Commands
+    public DelegateCommand OpenCommand { get; }
+    #endregion
+
+    #region Commands Methods
+    private void OnOpen()
+    {
+        if (SelectedModels.Count == 1)
+            _explorerViewModel.OnOpen(SelectedModels.First());
+
+    }
+    #endregion
+
+    #region Public Methods
     public void Load(string path)
     {
         FileSystemCollection.Clear();
         SelectedModels.Clear();
         if (Name == Locale.Locale.Storage_Object_Names_Computer)
         {
-            foreach(var obj in Storage.GenericCollection.FindAll())
+            foreach (var obj in Storage.GenericCollection.FindAll())
             {
-                if(obj.Name != Locale.Locale.Storage_Object_Names_Computer)
+                if (obj.Name != Locale.Locale.Storage_Object_Names_Computer)
                 {
                     FileSystemCollection.Add(FileSystemModel.Create(obj, OnSelectModel));
                 }
@@ -48,7 +74,7 @@ public sealed class FileExplorerViewModel : NavigationObject, IFileExplorer
                 {
                     FileSystemCollection.Add(FileSystemModel.Create(obj, OnSelectModel));
                 }
-                    
+
             }
             foreach (var obj in di.EnumerateFiles())
             {
@@ -61,19 +87,23 @@ public sealed class FileExplorerViewModel : NavigationObject, IFileExplorer
             }
         }
     }
-
     public void OnSelectModel(object sender, PropertyChangedEventArgs e)
     {
-        SelectedModels.Clear();
+        
         if (sender is FileSystemModel s)
         {
-            if(e.PropertyName == nameof(ISelectable.IsSelected))
+            SelectedModels.Clear();
+            if (e.PropertyName == nameof(ISelectable.IsSelected))
             {
-                if ((bool)s.IsSelected) SelectedModels.Add(s);
-                else if ((bool)s.IsSelected) SelectedModels.Remove(s);
+                if ((bool)s.IsSelected) SelectedModels.Add((FileSystemModel)sender);
+                else if ((bool)s.IsSelected) SelectedModels.Remove((FileSystemModel)sender);
             }
         }
     }
+    #endregion
+
+    #region Private Methods
+
     #endregion
 }
 

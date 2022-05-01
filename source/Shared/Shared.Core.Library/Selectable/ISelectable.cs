@@ -3,7 +3,5 @@
     public interface ISelectable
     {
         bool? IsSelected { get; set; }
-
-        event PropertyChangedEventHandler? Selected;
     }
 }

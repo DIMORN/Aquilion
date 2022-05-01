@@ -43,6 +43,7 @@ public class ImageWork
                     filename = $"{Storage.Storage.ExternalServicesDirectory}\\Icons\\48.ico";
                 }
             }
+            else filename = $"{Storage.Storage.ExternalServicesDirectory}\\Icons\\23.ico";
         }
 
         return filename;

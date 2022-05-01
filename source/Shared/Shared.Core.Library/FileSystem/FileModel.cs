@@ -41,7 +41,9 @@ public sealed class FileModel : FileSystemModel
             _ => $"{Locale.Locale.FileSystem_Extension_UnknownFile} {info.Extension.ToUpper()}"
         };
 
-        Selected += selected;
+        IsSelected = false;
+
+        PropertyChanged += selected;
     }
 }
 

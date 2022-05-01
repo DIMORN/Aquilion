@@ -65,6 +65,7 @@ public class Navigation : INavigation
 
         Current = node;
 
+        RaiseNavigationHistoryChanged();
     }
 
     /// <summary>
@@ -74,7 +75,7 @@ public class Navigation : INavigation
     {
         var prev = Current.PREVIOUS;
 
-        Current = prev!;
+        Current = prev;
 
         RaiseNavigationHistoryChanged();
     }
@@ -86,7 +87,7 @@ public class Navigation : INavigation
     {
         var next = Current.NEXT;
 
-        Current = next!;
+        Current = next;
 
         RaiseNavigationHistoryChanged();
     }

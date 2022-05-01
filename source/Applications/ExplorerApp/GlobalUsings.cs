@@ -1,4 +1,5 @@
-﻿global using Services.Themes;
+﻿global using Prism.Mvvm;
+global using Services.Themes;
 global using Shared.Core.Library.Explorer;
 global using Shared.Core.Library.Menu;
 global using System;

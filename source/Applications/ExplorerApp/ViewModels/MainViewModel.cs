@@ -1,6 +1,6 @@
 ﻿namespace ExplorerApp.ViewModels;
 
-internal class MainViewModel
+internal class MainViewModel : BindableBase
 {
     public ExplorerViewModel ExplorerViewModel { get; set; }
     public string? Title { get; set; }
@@ -18,6 +18,13 @@ internal class MainViewModel
         ExplorerViewModel.Menu[2].Children.Add(new CheckableMenuItemViewModel("Lock ToolBar", LockToolBarCheck));
 
         ((CheckableMenuItemViewModel)ExplorerViewModel.Menu[2].Children.ToList().Find(x => x.Header == "Lock ToolBar")).IsChecked = true;
+
+        ExplorerViewModel.Navigation.Navigated += Navigation_Navigated;
+    }
+
+    private void Navigation_Navigated(object? sender, EventArgs e)
+    {
+        //Collection.Refresh();
     }
 
     private void MainViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -27,11 +34,12 @@ internal class MainViewModel
             if(ExplorerViewModel.CurrentType == ExplorerModelType.FileView)
             {
                 Collection = CollectionViewSource.GetDefaultView(((FileExplorerViewModel)ExplorerViewModel.Current).FileSystemCollection);
+                //Collection.Refresh();
             }
         }
     }
     private void LockToolBarCheck(object? sender, PropertyChangedEventArgs e)
     {
-        ToolBarsIsLocked = ((CheckableMenuItemViewModel)ExplorerViewModel.Menu[2].Children.ToList().Find(x => x.Header == "Lock ToolBar")).IsChecked;
+        ToolBarsIsLocked = (sender as CheckableMenuItemViewModel).IsChecked;
     }
 }

@@ -34,42 +34,45 @@ public class ExplorerViewModel : BindableBase, INavigatable
     public ExplorerViewModel()
     {
         Init();
-        _fileExplorerViewModel = new FileExplorerViewModel();
+        _fileExplorerViewModel = new FileExplorerViewModel(this);
         var obj = Storage.GenericCollection.FindById(Locale.Locale.Storage_Object_Names_Computer);
         Navigation = new Navigation(obj.FullName, obj.Name);
 
         Load(Navigation.Current.Path);
+
+        Navigation.Navigated += Navigation_Navigated;
     }
+
     #endregion
 
     #region Commands
     /// <summary>
     /// Command for invoke GoBack method
     /// </summary>
-    public DelegateCommand GoBackCommand { get; }
+    public DelegateCommand GoBackCommand { get; set; }
 
     /// <summary>
     /// Command for invoke GoForward method
     /// </summary>
-    public DelegateCommand GoForwardCommand { get; }
+    public DelegateCommand GoForwardCommand { get; set; }
     #endregion
 
     #region Commands Methods
-    private void OnOpen(object parameter)
+    public void OnOpen(object parameter)
     {
         if(parameter is DirectoryModel dm)
         {
             ((FileExplorerViewModel)Current).Name = dm.Name;
             ((FileExplorerViewModel)Current).Path = dm.FullName;
-            Navigation.Add(dm.FullName, dm.Name);
-            ((FileExplorerViewModel)Current).Load(dm.FullName);
+            Navigation.Add(((FileExplorerViewModel)Current).Path, ((FileExplorerViewModel)Current).Name);
+            ((FileExplorerViewModel)Current).Load(((FileExplorerViewModel)Current).Path);
         }
         else if (parameter is DriveModel driveModel)
         {
             ((FileExplorerViewModel)Current).Name = driveModel.Name;
             ((FileExplorerViewModel)Current).Path = driveModel.FullName;
-            Navigation.Add(driveModel.FullName, driveModel.Name);
-            ((FileExplorerViewModel)Current).Load(driveModel.FullName);
+            Navigation.Add(((FileExplorerViewModel)Current).Path, ((FileExplorerViewModel)Current).Name);
+            ((FileExplorerViewModel)Current).Load(((FileExplorerViewModel)Current).Path);
         }
     }
     private void OnClosing(object parameter)
@@ -83,6 +86,25 @@ public class ExplorerViewModel : BindableBase, INavigatable
     private void OnPaste(object parameter)
     {
         
+    }
+
+    private bool OnCanGoBack()
+    {
+        return Navigation.CanGoBack;
+    }
+    private void OnGoBack()
+    {
+        Navigation.GoBack();
+        Load(Navigation.Current.Path);
+    }
+    private bool OnCanGoForward()
+    {
+        return Navigation.CanGoForward;
+    }
+    private void OnGoForward()
+    {
+        Navigation.GoForward();
+        Load(Navigation.Current.Path);
     }
     #endregion
 
@@ -101,6 +123,14 @@ public class ExplorerViewModel : BindableBase, INavigatable
                 Navigation.Current = (NavigationObject)Current;
                 ((FileExplorerViewModel)Current).Load(p);
             }
+            else
+            {
+                _fileExplorerViewModel.Name = Navigation.Current.Name;
+                _fileExplorerViewModel.Path = Navigation.Current.Path;
+                Current = _fileExplorerViewModel;
+                Navigation.Current = (NavigationObject)Current;
+                ((FileExplorerViewModel)Current).Load(p);
+            }
             CurrentType = ExplorerModelType.FileView;
         }
     }
@@ -112,6 +142,12 @@ public class ExplorerViewModel : BindableBase, INavigatable
             InitializeMenuItems();
             var ch = Menu[2].Children[1] as CheckableMenuItemViewModel;
             ch.IsChecked = true;
+        }
+
+        //Init Commands
+        {
+            GoBackCommand = new DelegateCommand(OnGoBack, OnCanGoBack);
+            GoForwardCommand = new DelegateCommand(OnGoForward, OnCanGoForward);
         }
     }
 
@@ -160,6 +196,7 @@ public class ExplorerViewModel : BindableBase, INavigatable
                 new CheckableMenuItemViewModel("Preview", Check),
                 new CheckableMenuItemViewModel("Icons", Check, true, "View"),
                 new CheckableMenuItemViewModel("Details", Check, true, "View"),
+                new CheckableMenuItemViewModel("Checkable List Items", Check),
             }
 
         });
@@ -198,7 +235,21 @@ public class ExplorerViewModel : BindableBase, INavigatable
 
     private void Check(object? sender, PropertyChangedEventArgs e)
     {
+        if(sender is CheckableMenuItemViewModel chk)
+            if(chk.Header == "Checkable List Items")
+            {
+                if(Current is FileExplorerViewModel fileExplorerViewModel)
+                {
+                    fileExplorerViewModel.CheckableListItems = chk.IsChecked;
+                }
+            }
+    }
 
+
+    private void Navigation_Navigated(object? sender, EventArgs e)
+    {
+        GoBackCommand.RaiseCanExecuteChanged();
+        GoForwardCommand.RaiseCanExecuteChanged();
     }
     #endregion
 }

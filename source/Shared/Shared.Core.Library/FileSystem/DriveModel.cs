@@ -60,6 +60,10 @@ public class DriveModel : FileSystemModel
         };
 
         FullName = info.Name;
+
+        IsSelected = false;
+
+        PropertyChanged += selected;
     }
 }
 

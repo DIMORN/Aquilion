@@ -7,9 +7,7 @@ public class FileSystemModel : BindableBase, IFileSystemModel, ISelectable
     public string? Extension { get; set; }
     public string? Date { get; set; }
     public string? CreatedDate { get; set; }
-    public bool? IsSelected { get; set; } = false;
-
-    public event PropertyChangedEventHandler? Selected;
+    public bool? IsSelected { get; set; }
 
     public static FileSystemModel? Create(object obj, PropertyChangedEventHandler? selected = null)
     {
@@ -35,6 +33,7 @@ public class FileSystemModel : BindableBase, IFileSystemModel, ISelectable
             Locale.Locale.FileSystem_Size_MB, 
             Locale.Locale.FileSystem_Size_GB,
             Locale.Locale.FileSystem_Size_TB };
+        
     }
 
     public static string LengthToString(long? value)
@@ -59,5 +58,7 @@ public sealed class StorageObjectModel : FileSystemModel
         Name = obj.Name;
         FullName = obj.FullName;
         Extension = "Storage";
+        PropertyChanged += selected;
+        IsSelected = false;
     }
 }

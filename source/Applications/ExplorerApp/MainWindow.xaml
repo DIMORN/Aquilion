@@ -7,11 +7,11 @@
         xmlns:controls="clr-namespace:ExplorerApp.Controls"
         xmlns:tb="clr-namespace:ExplorerApp.Controls.ToolBar"
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="450" Width="800"
+        Title="{Binding ExplorerViewModel.Current.Name}" Height="450" Width="800"
         FontFamily="Tahoma"
         AllowsTransparency="True"
         WindowStyle="None"
-        Style="{DynamicResource WindowBasic}">
+        Style="{DynamicResource Style|Window|Default}">
     <DockPanel LastChildFill="True">
         <tb:ToolBar DockPanel.Dock="Top"/>
         <controls:ShellView/>
