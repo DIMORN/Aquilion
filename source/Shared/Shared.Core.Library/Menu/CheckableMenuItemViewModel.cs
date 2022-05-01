@@ -22,6 +22,7 @@ public sealed class CheckableMenuItemViewModel : MenuItemViewModel
     }
     public CheckableMenuItemViewModel()
     {
-
+        IsCheckable = true;
+        IsChecked = false;
     }
 }

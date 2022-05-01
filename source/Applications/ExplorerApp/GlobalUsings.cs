@@ -1,5 +1,6 @@
 ﻿global using Services.Themes;
 global using Shared.Core.Library.Explorer;
+global using Shared.Core.Library.Menu;
 global using System;
 global using System.Linq;
 global using System.ComponentModel;

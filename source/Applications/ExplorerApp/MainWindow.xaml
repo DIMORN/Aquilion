@@ -8,7 +8,10 @@
         xmlns:tb="clr-namespace:ExplorerApp.Controls.ToolBar"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="450" Width="800"
-        FontFamily="Tahoma">
+        FontFamily="Tahoma"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        Style="{DynamicResource WindowBasic}">
     <DockPanel LastChildFill="True">
         <tb:ToolBar DockPanel.Dock="Top"/>
         <controls:ShellView/>

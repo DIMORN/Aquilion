@@ -7,7 +7,7 @@ public class FileSystemModel : BindableBase, IFileSystemModel, ISelectable
     public string? Extension { get; set; }
     public string? Date { get; set; }
     public string? CreatedDate { get; set; }
-    public bool? IsSelected { get; set; }
+    public bool? IsSelected { get; set; } = false;
 
     public event PropertyChangedEventHandler? Selected;
 

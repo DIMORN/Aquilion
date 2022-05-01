@@ -118,24 +118,25 @@ public class ExplorerViewModel : BindableBase, INavigatable
     private void InitializeMenuItems(IList<StorageObject>? list = null, MenuItemViewModel parent = null)
     {
 
-        
-        Storage.DataBase.GetCollection<MenuItemViewModel>("Menu").Upsert("ExplorerMenu.File", new MenuItemViewModel
+        Menu.Add(new MenuItemViewModel
         {
             Header = "File",
             Children = new List<MenuItemViewModel>
             {
                 new MenuItemViewModel
                 {
-                    Header = "Open"
+                    Header = "Open",
+                    Command = new DelegateCommand<object>(OnOpen)
                 },
                 new MenuItemViewModel
                 {
-                    Header = "Exit"
+                    Header = "Exit",
+                    Command = new DelegateCommand<object>(OnClosing)
                 }
             }
 
         });
-        Storage.DataBase.GetCollection<MenuItemViewModel>("Menu").Upsert("ExplorerMenu.Edit", new MenuItemViewModel
+        Menu.Add(new MenuItemViewModel
         {
             Header = "Edit",
             Children = new List<MenuItemViewModel>
@@ -151,7 +152,7 @@ public class ExplorerViewModel : BindableBase, INavigatable
             }
 
         });
-        Storage.DataBase.GetCollection<MenuItemViewModel>("Menu").Upsert("ExplorerMenu.View", new MenuItemViewModel
+        Menu.Add(new MenuItemViewModel
         {
             Header = "View",
             Children = new List<MenuItemViewModel>
@@ -162,12 +163,12 @@ public class ExplorerViewModel : BindableBase, INavigatable
             }
 
         });
-        Storage.DataBase.GetCollection<MenuItemViewModel>("Menu").Upsert("ExplorerMenu.Favorites", new MenuItemViewModel
+        Menu.Add(new MenuItemViewModel
         {
             Header = "Favorites"
 
         });
-        Storage.DataBase.GetCollection<MenuItemViewModel>("Menu").Upsert("ExplorerMenu.Tools", new MenuItemViewModel
+        Menu.Add(new MenuItemViewModel
         {
             Header = "Tools",
             Children = new List<MenuItemViewModel>
@@ -179,7 +180,7 @@ public class ExplorerViewModel : BindableBase, INavigatable
             }
 
         });
-        Storage.DataBase.GetCollection<MenuItemViewModel>("Menu").Upsert("ExplorerMenu.Help", new MenuItemViewModel
+        Menu.Add(new MenuItemViewModel
         {
             Header = "Help",
             Children = new List<MenuItemViewModel>
@@ -191,19 +192,6 @@ public class ExplorerViewModel : BindableBase, INavigatable
             }
 
         });
-
-        var c = Storage.DataBase.GetCollection<MenuItemViewModel>("Menu").FindOne(x => x.Header == "File");
-        c.Children[0].Command = new DelegateCommand<object>(OnOpen);
-        c.Children[1].Command = new DelegateCommand<object>(OnOpen);
-        Menu.Add(c);
-        var d = Storage.DataBase.GetCollection<MenuItemViewModel>("Menu").FindOne(x => x.Header == "Edit");
-        c.Children[0].Command = new DelegateCommand<object>(OnCopy);
-        c.Children[1].Command = new DelegateCommand<object>(OnPaste);
-        Menu.Add(d);
-        Menu.Add(Storage.DataBase.GetCollection<MenuItemViewModel>("Menu").FindOne(x => x.Header == "View"));
-        Menu.Add(Storage.DataBase.GetCollection<MenuItemViewModel>("Menu").FindOne(x => x.Header == "Favorites"));
-        Menu.Add(Storage.DataBase.GetCollection<MenuItemViewModel>("Menu").FindOne(x => x.Header == "Tools"));
-        Menu.Add(Storage.DataBase.GetCollection<MenuItemViewModel>("Menu").FindOne(x => x.Header == "Help"));
 
         
     }

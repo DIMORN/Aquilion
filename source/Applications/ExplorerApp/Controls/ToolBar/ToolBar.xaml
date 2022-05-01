@@ -6,20 +6,34 @@
              xmlns:local="clr-namespace:ExplorerApp.Controls"
              xmlns:core="clr-namespace:Shared.Core.Library.Menu;assembly=Shared.Core.Library"
              mc:Ignorable="d" 
-             Height="50">
-    <Grid>
-        <Menu ItemsSource="{Binding ExplorerViewModel.Menu}"
-              Height="25">
-            <Menu.Resources>
-                <Style TargetType="MenuItem">
-                    <Setter Property="Header" Value="{Binding Header}"/>
-                    <Setter Property="Command" Value="{Binding Command}"/>
-                    <Setter Property="CommandParameter" Value="{Binding CommandParameter}"/>
-                    <Setter Property="IsCheckable" Value="{Binding IsCheckable}"/>
-                    <Setter Property="IsChecked" Value="{Binding IsChecked,Mode=TwoWay}"/>
-                    <Setter Property="ItemsSource" Value="{Binding Children}"/>
-                </Style>
-            </Menu.Resources>
-        </Menu>
-    </Grid>
+             Height="Auto">
+    <UserControl.Resources>
+       
+    </UserControl.Resources>
+    
+    <ToolBarTray Background="Transparent" >
+        
+        <ToolBar Background="Transparent"
+                 Foreground="White"
+                 
+                 MinWidth="350"
+                 ToolBarTray.IsLocked="True">
+            <Menu ItemsSource="{Binding ExplorerViewModel.Menu}"
+                  Background="DodgerBlue"
+                  >
+                <Menu.Resources>
+                    <Style TargetType="{x:Type MenuItem}">
+                        <Setter Property="Header" Value="{Binding Header}"/>
+                        <Setter Property="ToolBar.OverflowMode" Value="AsNeeded"/>
+                        <Setter Property="ItemsSource" Value="{Binding Children}"/>
+                        <Setter Property="Command" Value="{Binding Command}"/>
+                        <Setter Property="CommandParameter" Value="{Binding CommandParameter}"/>
+                        <Setter Property="IsCheckable" Value="{Binding IsCheckable}"/>
+                        <Setter Property="IsChecked" Value="{Binding IsChecked, Mode=TwoWay}"/>
+                    </Style>
+                </Menu.Resources>
+            </Menu>
+        </ToolBar>
+        <ToolBar/>
+    </ToolBarTray>
 </UserControl>

@@ -28,5 +28,6 @@ public partial class App : Application
                 Source = new Uri($"pack://application:,,,/{a.FullName};component/Generic/Generic.xaml")
             });
         }
+
     }
 }
