@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:ExplorerApp.Controls"
              xmlns:core="clr-namespace:Shared.Core.Library.Menu;assembly=Shared.Core.Library"
              mc:Ignorable="d" 
@@ -12,6 +13,10 @@
     </UserControl.Resources>
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
         <ToolBarTray Background="Transparent" >
 
             <ToolBar Background="Transparent"
@@ -106,7 +111,77 @@
                     </StackPanel>
                 </Button>
             </ToolBar>
+            
         </ToolBarTray>
+        <Grid Grid.Row="1" ToolBar.OverflowMode="AsNeeded" ToolBarTray.IsLocked="{Binding ToolBarsIsLocked, Mode=TwoWay}"
+                     >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Address: "
+                       Foreground="#FFFFFF"
+                       Margin="10,0,0,0"/>
+            <TextBox Grid.Column="1"
+                     Text="{Binding ExplorerViewModel.Current.Path, UpdateSourceTrigger=PropertyChanged}">
+                <b:Interaction.Triggers>
+                    <b:KeyTrigger Key="Return"
+                                  FiredOn="KeyDown"
+                                  >
+                        <b:InvokeCommandAction Command="{Binding ExplorerViewModel.OpenCommand}"
+                                               CommandParameter="{Binding ExplorerViewModel.Current.Path}"/>
+                    </b:KeyTrigger>
+                </b:Interaction.Triggers>
+            </TextBox>
+            <Button Grid.Column="2"
+                    Style="{DynamicResource Style|ToolBar|Button}">
+                <StackPanel Margin="2" Orientation="Horizontal">
+                    <Viewbox>
+                        <Grid Width="16"
+                                  Height="16">
+                            <Image Margin="-2">
+                                <Image.Source>
+                                    <DrawingImage>
+                                        <DrawingImage.Drawing>
+                                            <DrawingGroup ClipGeometry="M0,0 V512 H448 V0 H0 Z">
+                                                <GeometryDrawing Brush="White" Geometry="F1 M448,512z M0,0z M0,96C0,60.65,28.65,32,64,32L384,32C419.3,32,448,60.65,448,96L448,416C448,451.3,419.3,480,384,480L64,480C28.65,480,0,451.3,0,416L0,96z" />
+                                            </DrawingGroup>
+                                        </DrawingImage.Drawing>
+                                    </DrawingImage>
+                                </Image.Source>
+                            </Image>
+                            <Image Margin="-1">
+                                <Image.Source>
+                                    <DrawingImage>
+                                        <DrawingImage.Drawing>
+                                            <DrawingGroup ClipGeometry="M0,0 V512 H448 V0 H0 Z">
+                                                <GeometryDrawing Brush="Green" Geometry="F1 M448,512z M0,0z M0,96C0,60.65,28.65,32,64,32L384,32C419.3,32,448,60.65,448,96L448,416C448,451.3,419.3,480,384,480L64,480C28.65,480,0,451.3,0,416L0,96z" />
+                                            </DrawingGroup>
+                                        </DrawingImage.Drawing>
+                                    </DrawingImage>
+                                </Image.Source>
+                            </Image>
+                            <Image Width="12">
+                                <Image.Source>
+                                    <DrawingImage>
+                                        <DrawingImage.Drawing>
+                                            <DrawingGroup ClipGeometry="M0,0 V512 H448 V0 H0 Z">
+                                                <GeometryDrawing Brush="#FFFFFFfF" Geometry="F1 M448,512z M0,0z M438.6,278.6L278.6,438.6C272.4,444.9 264.2,448 256,448 247.8,448 239.62,444.875 233.38,438.625 220.88,426.125 220.88,405.875 233.38,393.375L338.8,288 32,288C14.33,288 0.0016,273.7 0.0016,256 0.0016,238.3 14.33,224 32,224L338.8,224 233.4,118.6C220.9,106.1 220.9,85.85 233.4,73.35 245.9,60.85 266.15,60.85 278.65,73.35L438.65,233.35C451.1,245.9,451.1,266.1,438.6,278.6z" />
+                                            </DrawingGroup>
+                                        </DrawingImage.Drawing>
+                                    </DrawingImage>
+                                </Image.Source>
+                            </Image>
+                        </Grid>
+                    </Viewbox>
+                    <TextBlock Text="Go"
+                                   Foreground="#FFFFFF"
+                                   VerticalAlignment="Center"
+                                   Margin="5,0"/>
+                </StackPanel>
+            </Button>
+        </Grid>
     </Grid>
     
 </UserControl>

@@ -34,7 +34,7 @@ public class ExplorerViewModel : BindableBase, INavigatable
     public ExplorerViewModel()
     {
         Init();
-        _fileExplorerViewModel = new FileExplorerViewModel(this);
+
         var obj = Storage.GenericCollection.FindById(Locale.Locale.Storage_Object_Names_Computer);
         Navigation = new Navigation(obj.FullName, obj.Name);
 
@@ -55,24 +55,61 @@ public class ExplorerViewModel : BindableBase, INavigatable
     /// Command for invoke GoForward method
     /// </summary>
     public DelegateCommand GoForwardCommand { get; set; }
+
+    /// <summary>
+    /// Command for invoke OnOpen method
+    /// </summary>
+    public DelegateCommand<object> OpenCommand { get; set; }
     #endregion
 
     #region Commands Methods
     public void OnOpen(object parameter)
     {
-        if(parameter is DirectoryModel dm)
+        switch (parameter)
         {
-            ((FileExplorerViewModel)Current).Name = dm.Name;
-            ((FileExplorerViewModel)Current).Path = dm.FullName;
-            Navigation.Add(((FileExplorerViewModel)Current).Path, ((FileExplorerViewModel)Current).Name);
-            ((FileExplorerViewModel)Current).Load(((FileExplorerViewModel)Current).Path);
-        }
-        else if (parameter is DriveModel driveModel)
-        {
-            ((FileExplorerViewModel)Current).Name = driveModel.Name;
-            ((FileExplorerViewModel)Current).Path = driveModel.FullName;
-            Navigation.Add(((FileExplorerViewModel)Current).Path, ((FileExplorerViewModel)Current).Name);
-            ((FileExplorerViewModel)Current).Load(((FileExplorerViewModel)Current).Path);
+            case DirectoryModel dm:
+                if (dm.FullName.ToLower() == ((FileExplorerViewModel)Current).Path.ToLower())
+                {
+                    Load(dm.FullName + "\\");
+                }
+                else
+                {
+                    ((FileExplorerViewModel)Current).Name = dm.Name;
+                    ((FileExplorerViewModel)Current).Path = dm.FullName;
+                    Navigation.Add(((FileExplorerViewModel)Current).Path + "\\", ((FileExplorerViewModel)Current).Name);
+                    Load(((FileExplorerViewModel)Current).Path + "\\");
+                }
+                break;
+            case DriveModel driveModel:
+                if (driveModel.FullName.ToLower() == ((FileExplorerViewModel)Current).Path.ToLower())
+                {
+                    Load(driveModel.FullName);
+                }
+                else
+                {
+                    ((FileExplorerViewModel)Current).Name = driveModel.Name;
+                    ((FileExplorerViewModel)Current).Path = driveModel.FullName;
+                    Navigation.Add(((FileExplorerViewModel)Current).Path, ((FileExplorerViewModel)Current).Name);
+                    ((FileExplorerViewModel)Current).Load(((FileExplorerViewModel)Current).Path);
+                }
+                break;
+            case string path:
+                if (path.ToLower() == ((FileExplorerViewModel)Current).Path.ToLower())
+                {
+                    Load(path + "\\");
+                }
+                else
+                {
+                    Navigation.Add(path + "\\", path.Split("\\").Last());
+                    Load(path + "\\");
+
+                }
+                break;
+               
+
+            case ObservableCollection<FileSystemModel> SelectedModels:
+                ((FileExplorerViewModel)Current).OpenCommand.Execute();
+                break;
         }
     }
     private void OnClosing(object parameter)
@@ -120,7 +157,6 @@ public class ExplorerViewModel : BindableBase, INavigatable
                 _fileExplorerViewModel.Name = Navigation.Current.Name;
                 _fileExplorerViewModel.Path = Navigation.Current.Path;
                 Current = _fileExplorerViewModel;
-                Navigation.Current = (NavigationObject)Current;
                 ((FileExplorerViewModel)Current).Load(p);
             }
             else
@@ -128,7 +164,6 @@ public class ExplorerViewModel : BindableBase, INavigatable
                 _fileExplorerViewModel.Name = Navigation.Current.Name;
                 _fileExplorerViewModel.Path = Navigation.Current.Path;
                 Current = _fileExplorerViewModel;
-                Navigation.Current = (NavigationObject)Current;
                 ((FileExplorerViewModel)Current).Load(p);
             }
             CurrentType = ExplorerModelType.FileView;
@@ -137,6 +172,8 @@ public class ExplorerViewModel : BindableBase, INavigatable
 
     private void Init()
     {
+        _fileExplorerViewModel = new FileExplorerViewModel(this);
+        OpenCommand = new DelegateCommand<object>(OnOpen);
         //Init Menu
         {
             InitializeMenuItems();
@@ -162,7 +199,8 @@ public class ExplorerViewModel : BindableBase, INavigatable
                 new MenuItemViewModel
                 {
                     Header = "Open",
-                    Command = new DelegateCommand<object>(OnOpen)
+                    Command = new DelegateCommand<object>(OnOpen),
+                    CommandParameter = _fileExplorerViewModel.SelectedModels
                 },
                 new MenuItemViewModel
                 {

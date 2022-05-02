@@ -10,6 +10,23 @@
             <ListView x:Name="ListviewContainer" 
                       ItemsSource="{Binding Collection}"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView.ContextMenu>
+                    <ContextMenu ItemsSource="{Binding ExplorerViewModel.Current.ListViewContextMenu}"
+                                 Foreground="#FFFFFF">
+                        <ContextMenu.Resources>
+                            <Style TargetType="{x:Type MenuItem}">
+                                <Setter Property="Header" Value="{Binding Header}"/>
+                                <Setter Property="ToolBar.OverflowMode" Value="AsNeeded"/>
+                                <Setter Property="ItemsSource" Value="{Binding Children}"/>
+                                <Setter Property="Command" Value="{Binding Command}"/>
+                                <Setter Property="CommandParameter" Value="{Binding CommandParameter}"/>
+                                <Setter Property="IsCheckable" Value="{Binding IsCheckable}"/>
+                                <Setter Property="IsChecked" Value="{Binding IsChecked, Mode=TwoWay}"/>
+                            </Style>
+                        </ContextMenu.Resources>
+
+                    </ContextMenu>
+                </ListView.ContextMenu>
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel />
@@ -68,6 +85,11 @@
                     <b:EventTrigger EventName="MouseDoubleClick">
                         <b:InvokeCommandAction Command="{Binding ExplorerViewModel.Current.OpenCommand}"
                                                CommandParameter="{Binding ExplorerViewModel.Current.SelectedModels}"/>
+                    </b:EventTrigger>
+                    <b:EventTrigger EventName="MouseDown">
+                        <b:ChangePropertyAction TargetName="ListviewContainer"
+                                                PropertyName="SelectedItem"
+                                                Value="{x:Null}"/>
                     </b:EventTrigger>
                 </b:Interaction.Triggers>
             </ListView>

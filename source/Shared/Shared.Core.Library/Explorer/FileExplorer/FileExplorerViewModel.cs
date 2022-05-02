@@ -7,6 +7,8 @@ public sealed class FileExplorerViewModel : BindableBase, IFileExplorer
     #endregion
 
     #region Public Properties
+    public ObservableCollection<MenuItemViewModel> ListViewContextMenu { get; set; } = 
+        new ObservableCollection<MenuItemViewModel>();
     public string Path { get; set; }
     public string Name { get; set; }
     public ObservableCollection<FileSystemModel>? FileSystemCollection { get; set; } =
@@ -25,8 +27,10 @@ public sealed class FileExplorerViewModel : BindableBase, IFileExplorer
         _explorerViewModel = explorerViewModel;
 
         OpenCommand = new DelegateCommand(OnOpen);
+
+        SelectedModels.CollectionChanged += SelectedModels_CollectionChanged;
     }
-    
+
     #endregion
 
     #region Commands
@@ -104,6 +108,27 @@ public sealed class FileExplorerViewModel : BindableBase, IFileExplorer
 
     #region Private Methods
 
+
+    private void SelectedModels_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    {
+        ListViewContextMenu.Clear();
+
+        if (SelectedModels.Count == 1)
+        {
+
+            _explorerViewModel.Menu[0].Children.ToList().ForEach(delegate (MenuItemViewModel mivm)
+            {
+                ListViewContextMenu.Add(mivm);
+            });
+        }
+        else if (SelectedModels.Count == 0)
+        {
+            _explorerViewModel.Menu[2].Children.ToList().ForEach(delegate (MenuItemViewModel mivm)
+            {
+                ListViewContextMenu.Add(mivm);
+            });
+        }
+    }
     #endregion
 }
 
