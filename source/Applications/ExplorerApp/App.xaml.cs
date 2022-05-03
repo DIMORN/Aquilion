@@ -29,5 +29,12 @@ public partial class App : Application
             });
         }
 
+        MainWindow w = new MainWindow();
+        w.Show();
+        MainWindow d = new MainWindow();
+        d.Show();
+
+        DebugWindow debugWindow = new DebugWindow();
+        debugWindow.Show();
     }
 }

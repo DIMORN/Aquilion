@@ -1,7 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:wpf="clr-namespace:Services.WPF;assembly=Services.WPF"
-                    xmlns:b="http://schemas.microsoft.com/xaml/behaviors">
+                    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+                    
+                    xmlns:helpers="clr-namespace:ExplorerApp.Helpers"
+             xmlns:dd="urn:gong-wpf-dragdrop"
+             
+             
+             >
     
 
     <ControlTemplate x:Key="Listview" TargetType="UserControl">
@@ -9,7 +15,13 @@
                 ClipToBounds="True">
             <ListView x:Name="ListviewContainer" 
                       ItemsSource="{Binding Collection}"
-                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      dd:DragDrop.IsDragSource="True"
+                      dd:DragDrop.IsDropTarget="True"        
+                      dd:DragDrop.DropHandler="{x:Static helpers:DropHandler.Instnace}"
+                      
+                      dd:DragDrop.UseDefaultDragAdorner="True"
+                      dd:DragDrop.UseDefaultEffectDataTemplate="True">
                 <ListView.ContextMenu>
                     <ContextMenu ItemsSource="{Binding ExplorerViewModel.Current.ListViewContextMenu}"
                                  Foreground="#FFFFFF">
@@ -40,9 +52,7 @@
                                 <ToolTip Content="{Binding}" Margin="-5">
                                     <ToolTip.ContentTemplate>
                                         <DataTemplate>
-                                            <Border Background="White"
-                                                    BorderBrush="Gray"
-                                                    BorderThickness="1">
+                                            <Border >
                                                 <StackPanel>
                                                     <TextBlock Text="{Binding FullName}"/>
                                                     <ProgressBar Value="{Binding UsedPercentage}"
@@ -96,7 +106,7 @@
         </Border>
         <ControlTemplate.Triggers>
             <DataTrigger Binding="{Binding ExplorerViewModel.Current.CheckableListItems}" Value="True">
-                <Setter TargetName="ListviewContainer" Property="ItemContainerStyle" Value="{DynamicResource Style|Listview|ListviewItem|Checkable}"/>
+                <Setter TargetName="ListviewContainer" Property="ItemContainerStyle" Value="{DynamicResource Style_Listview_ListviewItem_Checkable}"/>
             </DataTrigger>
 
         </ControlTemplate.Triggers>

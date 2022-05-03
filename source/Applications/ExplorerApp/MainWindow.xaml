@@ -11,6 +11,7 @@
         FontFamily="Tahoma"
         AllowsTransparency="True"
         WindowStyle="None"
+        AllowDrop="True"
         Style="{DynamicResource Style|Window|Default}">
     <DockPanel LastChildFill="True">
         <tb:ToolBar DockPanel.Dock="Top"/>

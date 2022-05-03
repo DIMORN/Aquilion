@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Windows.Input;
 using GongSolutions.Wpf.DragDrop;
 
 namespace ExplorerApp.Helpers;
@@ -10,35 +11,35 @@ internal class DropHandler : IDropTarget
     public static IDropTarget Instnace => _instance ??= new DropHandler();
     public void DragOver(IDropInfo dropInfo)
     {
-
-        var o = dropInfo.Data as DataObject;
-        var d = o.GetFileDropList();
-        if(d.Count == 1)
+        var debugwindow = Application.Current.Windows.OfType<DebugWindow>().FirstOrDefault();
+        
+        if(dropInfo.Data is DataObject dataObject && dataObject.GetFileDropList().Count != 0)
         {
-            dropInfo.EffectText = $"Drop to go to {d[0]}";
-            dropInfo.Effects = DragDropEffects.Scroll;
-            var attr = File.GetAttributes(d[0]);
-            if (attr.HasFlag(FileAttributes.Directory))
+            if (debugwindow != null)
             {
-                var di = new DirectoryInfo(d[0]);
-                
+                debugwindow.TextBlock.Text = $"Data: {dataObject.GetFileDropList()[0]}\nTargetCollection: {dropInfo.TargetCollection}\nTarget Item: {dropInfo.TargetItem}";
+
+                dropInfo.Effects = DragDropEffects.Move;
+                dropInfo.EffectText = $"Go to ";
+                dropInfo.DestinationText = $"{dataObject.GetFileDropList()[0]}";
             }
-            else if (attr.HasFlag(FileAttributes.Normal))
+
+        }
+        else
+        {
+            if (debugwindow != null)
             {
-                var fi = new FileInfo(d[0]);
+                debugwindow.TextBlock.Text = $"Data: {dropInfo.Data}\nTargetCollection: {dropInfo.TargetCollection}\nTarget Item: {dropInfo.TargetItem}";
+                dropInfo.Effects = DragDropEffects.Move;
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                dropInfo.EffectText = $"Move to";
+                dropInfo.DestinationText = $"{dropInfo.TargetCollection}";
             }
-            else if (attr.HasFlag(FileAttributes.Device))
-            {
-                var drv = new DriveInfo(d[0]);
-            }
+
         }
     }
-
     public void Drop(IDropInfo dropInfo)
     {
-        if (dropInfo.VisualTarget is ExplorerApp.Controls.ShellView shv)
-        {
-            ((ViewModels.MainViewModel)shv.DataContext).ExplorerViewModel.OnOpen(new Shared.Core.Library.FileSystem.DirectoryModel(new DirectoryInfo((dropInfo.Data as DataObject).GetFileDropList()[0])));
-        }
+        
     }
 }

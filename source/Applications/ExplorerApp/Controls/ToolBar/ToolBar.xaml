@@ -111,7 +111,305 @@
                     </StackPanel>
                 </Button>
             </ToolBar>
-            
+            <ToolBar ToolBarTray.IsLocked="{Binding ToolBarsIsLocked, Mode=TwoWay}">
+                <Button DataContext="{Binding ExplorerViewModel.Current}"
+                          Command="{Binding GoToParentCommand}"
+                              ToolTip="Move to parent folder">
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <Viewbox>
+                            <Grid Width="24"
+                                  Height="24"
+                                  >
+                                <Image>
+                                    <Image.Source>
+                                        <DrawingImage>
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                                                    <GeometryDrawing Geometry="F1 M512,512z M0,0z M512,144L512,432C512,458.5,490.5,480,464,480L48,480C21.5,480,0,458.5,0,432L0,80C0,53.5,21.5,32,48,32L208,32 272,96 464,96C490.5,96,512,117.5,512,144z" >
+                                                        <GeometryDrawing.Brush>
+                                                            <LinearGradientBrush 
+                                                                                 StartPoint="0,0" EndPoint="0,1" >
+                                                                <GradientStop Color="#B28F23"/>
+                                                                <GradientStop Color="#B28F23" Offset="1"/>
+                                                            </LinearGradientBrush>
+                                                        </GeometryDrawing.Brush>
+                                                    </GeometryDrawing>
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </Image.Source>
+                                </Image>
+                                <!---->
+                                <Image Margin="0.5">
+                                    <Image.Source>
+                                        <DrawingImage>
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                                                    <GeometryDrawing Geometry="F1 M512,512z M0,0z M512,144L512,432C512,458.5,490.5,480,464,480L48,480C21.5,480,0,458.5,0,432L0,80C0,53.5,21.5,32,48,32L208,32 272,96 464,96C490.5,96,512,117.5,512,144z" >
+                                                        <GeometryDrawing.Brush>
+                                                            <LinearGradientBrush 
+                                                                                 StartPoint="0,0" EndPoint="0,1" >
+                                                                <GradientStop Color="#55FFFFFF"/>
+                                                                <GradientStop Color="#B28F23" Offset="1"/>
+                                                            </LinearGradientBrush>
+                                                        </GeometryDrawing.Brush>
+                                                    </GeometryDrawing>
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </Image.Source>
+                                </Image>
+                                <Image Margin="3,-2,-2,3">
+                                    <Image.Source>
+                                        <DrawingImage>
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup ClipGeometry="M0,0 V20 H20 V0 H0 Z">
+                                                    <GeometryDrawing Geometry="F1 M20,20z M0,0z M11,18L9,18 9,6 5,10 3,9 10,2 17,9 15,10 11,6 11,18z" >
+                                                        <GeometryDrawing.Brush>
+                                                            <LinearGradientBrush 
+                                                                                 StartPoint="0,0" EndPoint="0,1" >
+                                                                <GradientStop Color="#FFFFFF"/>
+                                                            </LinearGradientBrush>
+                                                        </GeometryDrawing.Brush>
+                                                    </GeometryDrawing>
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </Image.Source>
+                                </Image>
+                                <Image Margin="4,-2,-2,4">
+                                    <Image.Source>
+                                        <DrawingImage>
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup ClipGeometry="M0,0 V20 H20 V0 H0 Z">
+                                                    <GeometryDrawing Geometry="F1 M20,20z M0,0z M11,18L9,18 9,6 5,10 3,9 10,2 17,9 15,10 11,6 11,18z" >
+                                                        <GeometryDrawing.Brush>
+                                                            <LinearGradientBrush 
+                                                                                 StartPoint="0,0" EndPoint="0,1" >
+                                                                <GradientStop Color="#428F23"/>
+                                                                <GradientStop Color="#2E6018" Offset="1"/>
+                                                            </LinearGradientBrush>
+                                                        </GeometryDrawing.Brush>
+                                                    </GeometryDrawing>
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </Image.Source>
+                                </Image>
+                            </Grid>
+                        </Viewbox>
+                        <TextBlock Text="Up a folder"
+                                   Foreground="#FFFFFF"
+                                   VerticalAlignment="Center"
+                                   Margin="5,0"/>
+                    </StackPanel>
+                </Button>
+                <ToggleButton DataContext="{Binding ExplorerViewModel.Menu[2].Children[0]}"
+                          
+                          IsChecked="{Binding IsChecked, Mode=TwoWay}"
+                              ToolTip="{Binding Header}">
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <Viewbox>
+                            <Grid Width="24"
+                                  Height="24"
+                                  >
+                                <Image>
+                                    <Image.Source>
+                                        <DrawingImage>
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                                                    <GeometryDrawing Geometry="F1 M512,512z M0,0z M512,144L512,432C512,458.5,490.5,480,464,480L48,480C21.5,480,0,458.5,0,432L0,80C0,53.5,21.5,32,48,32L208,32 272,96 464,96C490.5,96,512,117.5,512,144z" >
+                                                        <GeometryDrawing.Brush>
+                                                            <LinearGradientBrush 
+                                                                                 StartPoint="0,0" EndPoint="0,1" >
+                                                                <GradientStop Color="#B28F23"/>
+                                                                <GradientStop Color="#B28F23" Offset="1"/>
+                                                            </LinearGradientBrush>
+                                                        </GeometryDrawing.Brush>
+                                                    </GeometryDrawing>
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </Image.Source>
+                                </Image>
+                                <!---->
+                                <Image Margin="0.5">
+                                    <Image.Source>
+                                        <DrawingImage>
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                                                    <GeometryDrawing Geometry="F1 M512,512z M0,0z M512,144L512,432C512,458.5,490.5,480,464,480L48,480C21.5,480,0,458.5,0,432L0,80C0,53.5,21.5,32,48,32L208,32 272,96 464,96C490.5,96,512,117.5,512,144z" >
+                                                        <GeometryDrawing.Brush>
+                                                            <LinearGradientBrush 
+                                                                                 StartPoint="0,0" EndPoint="0,1" >
+                                                                <GradientStop Color="#55FFFFFF"/>
+                                                                <GradientStop Color="#B28F23" Offset="1"/>
+                                                            </LinearGradientBrush>
+                                                        </GeometryDrawing.Brush>
+                                                    </GeometryDrawing>
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </Image.Source>
+                                </Image>
+                                <Image Margin="4,-2,-2,4">
+                                    <Image.Source>
+                                        <DrawingImage>
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                                                    <GeometryDrawing Geometry="F1 M512,512z M0,0z M512,144L512,432C512,458.5,490.5,480,464,480L48,480C21.5,480,0,458.5,0,432L0,80C0,53.5,21.5,32,48,32L208,32 272,96 464,96C490.5,96,512,117.5,512,144z" >
+                                                        <GeometryDrawing.Brush>
+                                                            <LinearGradientBrush 
+                                                                                 StartPoint="0,0" EndPoint="0,1" >
+                                                                <GradientStop Color="#B28F23"/>
+                                                                <GradientStop Color="#B28F23" Offset="1"/>
+                                                            </LinearGradientBrush>
+                                                        </GeometryDrawing.Brush>
+                                                    </GeometryDrawing>
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </Image.Source>
+                                </Image>
+                                <Image Margin="5,-2,-0,4">
+                                    <Image.Source>
+                                        <DrawingImage>
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                                                    <GeometryDrawing Geometry="F1 M512,512z M0,0z M512,144L512,432C512,458.5,490.5,480,464,480L48,480C21.5,480,0,458.5,0,432L0,80C0,53.5,21.5,32,48,32L208,32 272,96 464,96C490.5,96,512,117.5,512,144z" >
+                                                        <GeometryDrawing.Brush>
+                                                            <LinearGradientBrush 
+                                                                                 StartPoint="0,0" EndPoint="0,1" >
+                                                                <GradientStop Color="#55FFFFFF"/>
+                                                                <GradientStop Color="#B28F23" Offset="1"/>
+                                                            </LinearGradientBrush>
+                                                        </GeometryDrawing.Brush>
+                                                    </GeometryDrawing>
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </Image.Source>
+                                </Image>
+                            </Grid>
+                        </Viewbox>
+                        <TextBlock Text="Folders"
+                                   Foreground="#FFFFFF"
+                                   VerticalAlignment="Center"
+                                   Margin="5,0"/>
+                    </StackPanel>
+                </ToggleButton>
+                <ToggleButton DataContext="{Binding ExplorerViewModel.Menu[2].Children[0]}"
+                          
+                          IsChecked="{Binding IsChecked, Mode=TwoWay}"
+                              ToolTip="{Binding Header}">
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <Viewbox>
+                            <Grid Width="24"
+                                  Height="24"
+                                  >
+                                <Image>
+                                    <Image.Source>
+                                        <DrawingImage>
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                                                    <GeometryDrawing Brush="#60432F" Geometry="F1 M512,512z M0,0z M500.3,443.7L380.6,324C407.82,283.59 421.25,233.1 414.06,179.3 401.8,87.79 326.8,13.32 235.2,1.723 99.01,-15.51 -15.51,99.01 1.724,235.2 13.324,326.84 87.804,401.9 179.324,414.1 233.124,421.289 283.624,407.864 324.024,380.64L443.724,500.34C459.344,515.96 484.674,515.96 500.294,500.34 515.9,484.7 515.9,459.3 500.3,443.7z M79.1,208C79.1,137.42 136.52,80 207.1,80 277.68,80 335.1,137.42 335.1,208 335.1,278.58 277.68,336 207.1,336 136.52,336 79.1,278.6 79.1,208z" />
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </Image.Source>
+                                </Image>
+                                <!---->
+                                <Image Margin="0.9">
+                                    <Image.Source>
+                                        <DrawingImage>
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup ClipGeometry="M0,0 V17 H17 V0 H0 Z">
+                                                    <DrawingGroup.Transform>
+                                                        <TranslateTransform X="1.1078794841523631E-06" Y="0.028000000864267349" />
+                                                    </DrawingGroup.Transform>
+                                                    <GeometryDrawing Brush="#966849" Geometry="F1 M17,17z M0,0z M16.604,15.868L11.431,10.695C12.406,9.558 13,8.084 13,6.472 13,2.888 10.084,-0.0279999999999996 6.5,-0.0279999999999996 4.764,-0.0279999999999996 3.131,0.648 1.902,1.875 0.675,3.103 -0.00099999999999989,4.736 2.22044604925031E-16,6.472 2.22044604925031E-16,10.056 2.916,12.972 6.5,12.972 8.112,12.972 9.587,12.378 10.724,11.403L15.897,16.576 16.604,15.868z M6.5,11.972C3.468,11.972 1,9.505 1,6.472 0.999,5.002 1.571,3.621 2.61,2.583 3.648,1.544 5.03,0.972 6.5,0.972 9.532,0.972 12,3.439 12,6.472 12,9.504 9.532,11.972 6.5,11.972z" />
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </Image.Source>
+                                </Image>
+                                <Image Margin="3,2,8,8">
+                                    <Image.Source>
+                                        <DrawingImage>
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                                                    <GeometryDrawing Brush="#9FABB5" Geometry="F1 M512,512z M0,0z M512,256C512,397.4 397.4,512 256,512 114.6,512 0,397.4 0,256 0,114.6 114.6,0 256,0 397.4,0 512,114.6 512,256z" />
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </Image.Source>
+                                </Image>
+                            </Grid>
+                        </Viewbox>
+                        <TextBlock Text="Search"
+                                   Foreground="#FFFFFF"
+                                   VerticalAlignment="Center"
+                                   Margin="5,0"/>
+                    </StackPanel>
+                </ToggleButton>
+                <ToggleButton DataContext="{Binding ExplorerViewModel.Menu[2].Children[0]}"
+                          
+                          IsChecked="{Binding IsChecked, Mode=TwoWay}"
+                              ToolTip="{Binding Header}">
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <Viewbox>
+                            <Grid Width="24"
+                                  Height="24">
+                                <Image>
+                                    <Image.Source>
+                                        <DrawingImage>
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                                                    <GeometryDrawing Brush="#045D99" Geometry="F1 M512,512z M0,0z M0,0L512,0 512,512 0,512 0,0z" />
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </Image.Source>
+                                </Image>
+                                <Image Margin="0.8">
+                                    <Image.Source>
+                                        <DrawingImage>
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                                                    <GeometryDrawing Brush="#0576C1" Geometry="F1 M512,512z M0,0z M0,0L512,0 512,512 0,512 0,0z" />
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </Image.Source>
+                                </Image>
+                                <Image Margin="2">
+                                    <Image.Source>
+                                        <DrawingImage>
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                                                    <GeometryDrawing Brush="#FFFFFF" Geometry="F1 M512,512z M0,0z M0,0L512,0 512,512 0,512 0,0z" />
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </Image.Source>
+                                </Image>
+                                <Image Width="18">
+                                    <Image.Source>
+                                        <DrawingImage>
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup ClipGeometry="M0,0 V17 H17 V0 H0 Z">
+                                                    <GeometryDrawing Brush="#496577" Geometry="F1 M17,17z M0,0z M2,13L17,13 17,14 2,14 2,13z M7,15.993L17,15.993 17,14.993 7,14.993 7,15.993z M17,1L17,12 0,12 0,1 17,1z M16,2L1,2 1,11 16,11 16,2z"  />
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </Image.Source>
+                                </Image>
+                            </Grid>
+                        </Viewbox>
+                        
+                    </StackPanel>
+                </ToggleButton>
+            </ToolBar>
         </ToolBarTray>
         <Grid Grid.Row="1" ToolBar.OverflowMode="AsNeeded" ToolBarTray.IsLocked="{Binding ToolBarsIsLocked, Mode=TwoWay}"
                      >
@@ -135,7 +433,7 @@
                 </b:Interaction.Triggers>
             </TextBox>
             <Button Grid.Column="2"
-                    Style="{DynamicResource Style|ToolBar|Button}">
+                    Style="{DynamicResource Style_ToolBar_Button}">
                 <StackPanel Margin="2" Orientation="Horizontal">
                     <Viewbox>
                         <Grid Width="16"

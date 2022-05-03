@@ -27,14 +27,19 @@ public sealed class FileExplorerViewModel : BindableBase, IFileExplorer
         _explorerViewModel = explorerViewModel;
 
         OpenCommand = new DelegateCommand(OnOpen);
+        GoToParentCommand = new DelegateCommand(OnGoToParent, OnCanGoToParent);
 
         SelectedModels.CollectionChanged += SelectedModels_CollectionChanged;
+
+        GoToParentCommand?.RaiseCanExecuteChanged();
     }
 
     #endregion
 
     #region Commands
     public DelegateCommand OpenCommand { get; }
+
+    public DelegateCommand GoToParentCommand { get; }
     #endregion
 
     #region Commands Methods
@@ -44,6 +49,27 @@ public sealed class FileExplorerViewModel : BindableBase, IFileExplorer
             _explorerViewModel.OnOpen(SelectedModels.First());
 
     }
+    private bool OnCanGoToParent()
+    {
+        return Path != "computer:" || Path != "computer:\\";
+    }
+    private void OnGoToParent()
+    {
+        var di = new DirectoryInfo(Path);
+        
+        if(di.Parent == null)
+        {
+            _explorerViewModel.OnOpen("computer:");
+        }
+        else
+        {
+            var parent = new DirectoryModel(di.Parent);
+            _explorerViewModel.OnOpen(parent);
+        }
+
+        GoToParentCommand?.RaiseCanExecuteChanged();
+
+    }
     #endregion
 
     #region Public Methods
@@ -51,7 +77,7 @@ public sealed class FileExplorerViewModel : BindableBase, IFileExplorer
     {
         FileSystemCollection.Clear();
         SelectedModels.Clear();
-        if (Name == Locale.Locale.Storage_Object_Names_Computer)
+        if (Name == Locale.Locale.Storage_Object_Names_Computer || path.ToLower() == "computer:\\")
         {
             foreach (var obj in Storage.GenericCollection.FindAll())
             {
@@ -90,6 +116,7 @@ public sealed class FileExplorerViewModel : BindableBase, IFileExplorer
                 }
             }
         }
+
     }
     public void OnSelectModel(object sender, PropertyChangedEventArgs e)
     {
