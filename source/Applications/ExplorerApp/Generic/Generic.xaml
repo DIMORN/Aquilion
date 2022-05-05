@@ -4,5 +4,6 @@
         <ResourceDictionary Source="pack://application:,,,/ExplorerApp;component/Generic/ShellView.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/ExplorerApp;component/Generic/Listview.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/ExplorerApp;component/Generic/TaskPane.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ExplorerApp;component/Generic/PreviewPane.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

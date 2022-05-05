@@ -7,6 +7,7 @@ public sealed class FileExplorerViewModel : BindableBase, IFileExplorer
     #endregion
 
     #region Public Properties
+    public ExplorerViewModel ExplorerViewModel => _explorerViewModel;
     public ObservableCollection<MenuItemViewModel> ListViewContextMenu { get; set; } = 
         new ObservableCollection<MenuItemViewModel>();
     public string Path { get; set; }
@@ -25,6 +26,8 @@ public sealed class FileExplorerViewModel : BindableBase, IFileExplorer
     public FileExplorerViewModel(ExplorerViewModel explorerViewModel, string? path = null, string? name = null) 
     {
         _explorerViewModel = explorerViewModel;
+
+        Init();
 
         OpenCommand = new DelegateCommand(OnOpen);
         GoToParentCommand = new DelegateCommand(OnGoToParent, OnCanGoToParent);
@@ -51,7 +54,7 @@ public sealed class FileExplorerViewModel : BindableBase, IFileExplorer
     }
     private bool OnCanGoToParent()
     {
-        return Path != "computer:" || Path != "computer:\\";
+        return Path != "computer:\\";
     }
     private void OnGoToParent()
     {
@@ -75,10 +78,12 @@ public sealed class FileExplorerViewModel : BindableBase, IFileExplorer
     #region Public Methods
     public void Load(string path)
     {
+        GoToParentCommand?.RaiseCanExecuteChanged();
         FileSystemCollection.Clear();
         SelectedModels.Clear();
         if (Name == Locale.Locale.Storage_Object_Names_Computer || path.ToLower() == "computer:\\")
         {
+            if (Name.ToLower() != Locale.Locale.Storage_Object_Names_Computer.ToLower()) Name = Locale.Locale.Storage_Object_Names_Computer;
             foreach (var obj in Storage.GenericCollection.FindAll())
             {
                 if (obj.Name != Locale.Locale.Storage_Object_Names_Computer)
@@ -123,19 +128,18 @@ public sealed class FileExplorerViewModel : BindableBase, IFileExplorer
         
         if (sender is FileSystemModel s)
         {
-            SelectedModels.Clear();
+            
             if (e.PropertyName == nameof(ISelectable.IsSelected))
             {
-                if ((bool)s.IsSelected) SelectedModels.Add((FileSystemModel)sender);
-                else if ((bool)s.IsSelected) SelectedModels.Remove((FileSystemModel)sender);
+                SelectedModels.Clear();
+                if ((bool)s.IsSelected) SelectedModels.Add(s);
+                else if ((bool)s.IsSelected) SelectedModels.Remove(s);
             }
         }
     }
     #endregion
 
     #region Private Methods
-
-
     private void SelectedModels_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
     {
         ListViewContextMenu.Clear();
@@ -155,6 +159,11 @@ public sealed class FileExplorerViewModel : BindableBase, IFileExplorer
                 ListViewContextMenu.Add(mivm);
             });
         }
+    }
+    private void Init()
+    {
+        //
+        //
     }
     #endregion
 }

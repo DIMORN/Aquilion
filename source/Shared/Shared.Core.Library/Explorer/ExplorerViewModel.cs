@@ -8,6 +8,11 @@ public class ExplorerViewModel : BindableBase, INavigatable
 
     #region Public Properties
     /// <summary>
+    /// Public link to _fileExplorerViewModel;
+    /// </summary>
+    public FileExplorerViewModel FileExplorerViewModel => _fileExplorerViewModel;
+
+    /// <summary>
     /// Instance of navigation history
     /// </summary>
     public INavigation Navigation { get; }
@@ -231,7 +236,7 @@ public class ExplorerViewModel : BindableBase, INavigatable
             Header = "View",
             Children = new List<MenuItemViewModel>
             {
-                new CheckableMenuItemViewModel("Preview", Check),
+                
                 new CheckableMenuItemViewModel("Icons", Check, true, "View"),
                 new CheckableMenuItemViewModel("Details", Check, true, "View"),
                 new CheckableMenuItemViewModel("Checkable List Items", Check),

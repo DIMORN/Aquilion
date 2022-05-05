@@ -65,5 +65,10 @@ public enum StorageObjectType
     /// <summary>
     /// System object type
     /// </summary>
-    SystemObject
+    SystemObject,
+
+    /// <summary>
+    /// Task object
+    /// </summary>
+    Task
 }

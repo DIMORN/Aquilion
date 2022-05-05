@@ -1,10 +1,13 @@
 ﻿global using Prism.Mvvm;
 global using Services.Themes;
 global using Shared.Core.Library.Explorer;
+global using Shared.Core.Library.FileSystem;
 global using Shared.Core.Library.Menu;
 global using System;
 global using System.Linq;
 global using System.ComponentModel;
+global using System.Collections.ObjectModel;
+global using System.Collections.Generic;
 global using System.Windows;
 global using System.Windows.Controls;
 global using System.Windows.Data;

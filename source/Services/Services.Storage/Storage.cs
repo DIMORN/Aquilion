@@ -57,6 +57,7 @@ public static class Storage
 
     public static ILiteCollection<StorageObject> ExternalCollection;
     public static ILiteCollection<StorageObject> SystemCollection;
+    public static ILiteCollection<StorageObject> ActivitiesCollection;
     #endregion
 
     #region Static Constructor
@@ -64,6 +65,7 @@ public static class Storage
     {
         InitializeStrings();
         InitializeDataBase();
+        InitializeActivitiesCollection();
         InitializeCollections();
         InitializeSystemCollection();
     }
@@ -374,6 +376,20 @@ public static class Storage
         //        }
         //    }
         //});
+    }
+    private static void InitializeActivitiesCollection()
+    {
+        ActivitiesCollection = DataBase.GetCollection<StorageObject>("Activities");
+
+        foreach (var activity in HelpSupport.Help_SupportService.Activities)
+        {
+            ActivitiesCollection.Upsert(activity.Type.ToString(), new StorageObject
+            {
+                Name = activity.Header,
+                Type = StorageObjectType.Task,
+                FullName = activity.Type.ToString()
+            });
+        }
     }
     #endregion
 }

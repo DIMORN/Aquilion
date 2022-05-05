@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.WPF", "source\Serv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plex", "..\..\..\AppData\Local\Aquilion\External\Themes\Plex\Plex.csproj", "{E9FDBFC1-2A24-4E74-A84A-77603344961F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.HelpSupport", "source\Services\Services.HelpSupport\Services.HelpSupport.csproj", "{384A4A81-F520-42BF-A81C-FBFD25CE6B0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{E9FDBFC1-2A24-4E74-A84A-77603344961F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9FDBFC1-2A24-4E74-A84A-77603344961F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9FDBFC1-2A24-4E74-A84A-77603344961F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{384A4A81-F520-42BF-A81C-FBFD25CE6B0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{384A4A81-F520-42BF-A81C-FBFD25CE6B0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{384A4A81-F520-42BF-A81C-FBFD25CE6B0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{384A4A81-F520-42BF-A81C-FBFD25CE6B0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,6 +99,7 @@ Global
 		{B7016EFA-3E35-439F-B153-C8D51CA76A99} = {6A7A9950-B483-4E56-B69A-677577067053}
 		{A434225D-5D4E-46D1-A6AD-A2764FD2C54E} = {B7016EFA-3E35-439F-B153-C8D51CA76A99}
 		{E9FDBFC1-2A24-4E74-A84A-77603344961F} = {0B55A96F-CE73-4AFE-919E-650B3543D0C9}
+		{384A4A81-F520-42BF-A81C-FBFD25CE6B0B} = {6A7A9950-B483-4E56-B69A-677577067053}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DBDD7DC9-76AE-4D8F-8370-FEC25D42F9BB}

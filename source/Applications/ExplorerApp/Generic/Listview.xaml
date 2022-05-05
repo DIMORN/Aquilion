@@ -11,10 +11,14 @@
     
 
     <ControlTemplate x:Key="Listview" TargetType="UserControl">
-        <Border CornerRadius="8,0,0,0" Background="White"
+        <Border CornerRadius="10,0,0,0" 
+                Background="White"
                 ClipToBounds="True">
             <ListView x:Name="ListviewContainer" 
+                      BorderThickness="0"
+                      BorderBrush="Transparent"
                       ItemsSource="{Binding Collection}"
+                      SelectedIndex="{Binding PreviewPaneViewModel.SelectedIndex, Mode=TwoWay}"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       dd:DragDrop.IsDragSource="True"
                       dd:DragDrop.IsDropTarget="True"        
