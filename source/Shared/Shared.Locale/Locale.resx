@@ -243,4 +243,7 @@
   <data name="Storage|PhysicalDirectories|Names|UserDirectory" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="FileSystem|Extension|MSI" xml:space="preserve">
+    <value>Windows installer file</value>
+  </data>
 </root>

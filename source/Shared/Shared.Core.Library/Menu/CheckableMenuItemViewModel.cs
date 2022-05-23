@@ -1,6 +1,6 @@
-﻿namespace Shared.Core.Library.Menu;
-
-public sealed class CheckableMenuItemViewModel : MenuItemViewModel
+﻿namespace Shared.Core.Library.Menu
+{
+    public sealed class CheckableMenuItemViewModel : MenuItemViewModel
 {
     public bool? IsCheckable { get; }
     public bool? IsChecked { get; set; }
@@ -22,3 +22,6 @@ public sealed class CheckableMenuItemViewModel : MenuItemViewModel
         PropertyChanged += check;
     }
 }
+
+}
+

@@ -1,316 +1,372 @@
-﻿namespace Shared.Core.Library.Explorer;
+﻿using Services.Plugins;
 
-public class ExplorerViewModel : BindableBase, INavigatable
+namespace Shared.Core.Library.Explorer
 {
-    #region Private Fields
-    private FileExplorerViewModel _fileExplorerViewModel;
-    #endregion
-
-    #region Public Properties
-    /// <summary>
-    /// Public link to _fileExplorerViewModel;
-    /// </summary>
-    public FileExplorerViewModel FileExplorerViewModel => _fileExplorerViewModel;
-
-    /// <summary>
-    /// Instance of navigation history
-    /// </summary>
-    public INavigation Navigation { get; }
-
-    /// <summary>
-    /// Instance of current object
-    /// </summary>
-    public object Current { get; set; }
-    /// <summary>
-    /// Type of current present
-    /// </summary>
-    public ExplorerModelType CurrentType { get; set; }
-    /// <summary>
-    /// Main menu collection
-    /// </summary>
-    public ObservableCollection<MenuItemViewModel> Menu { get; set; } =
-        new();
-    #endregion
-
-    #region Constructor
-    /// <summary>
-    /// Default constructor
-    /// </summary>
-    public ExplorerViewModel()
+    public class ExplorerViewModel : BaseViewModel, INavigatable, IExtensible
     {
-        Init();
+        #region Private Fields
+        private IFileExplorer _fileExplorerViewModel;
+        private Lazy<string> _firstCheckedMenuItemHeader;
+        #endregion
+    
+        #region Public Properties
+        /// <summary>
+        /// Public link to _fileExplorerViewModel;
+        /// </summary>
+        public IFileExplorer FileExplorerViewModel { get; set; } 
 
-        var obj = Storage.GenericCollection.FindById(Locale.Locale.Storage_Object_Names_Computer);
-        Navigation = new Navigation(obj.FullName, obj.Name);
+        /// <summary>
+        /// Instance of navigation history
+        /// </summary>
+        public INavigation Navigation { get; }
 
-        Load(Navigation.Current.Path);
+        /// <summary>
+        /// Instance of current object
+        /// </summary>
+        public object Current { get; set; }
 
-        Navigation.Navigated += Navigation_Navigated;
-    }
+        /// <summary>
+        /// Type of current present
+        /// </summary>
+        public ExplorerModelType CurrentType { get; set; }
 
-    #endregion
+        /// <summary>
+        /// Main menu collection
+        /// </summary>
+        public ObservableCollection<MenuItemViewModel> Menu { get; set; } =
+            new();
 
-    #region Commands
-    /// <summary>
-    /// Command for invoke GoBack method
-    /// </summary>
-    public DelegateCommand GoBackCommand { get; set; }
+        public List<IPlugin> Plugins { get; set; } = new();
+        #endregion
+    
+        #region Constructor 
 
-    /// <summary>
-    /// Command for invoke GoForward method
-    /// </summary>
-    public DelegateCommand GoForwardCommand { get; set; }
-
-    /// <summary>
-    /// Command for invoke OnOpen method
-    /// </summary>
-    public DelegateCommand<object> OpenCommand { get; set; }
-    #endregion
-
-    #region Commands Methods
-    public void OnOpen(object parameter)
-    {
-        switch (parameter)
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public ExplorerViewModel(IFileExplorer fileExplorerViewModel)
         {
-            case DirectoryModel dm:
-                if (dm.FullName.ToLower() == ((FileExplorerViewModel)Current).Path.ToLower())
-                {
-                    Load(dm.FullName + "\\");
-                }
-                else
-                {
-                    ((FileExplorerViewModel)Current).Name = dm.Name;
-                    ((FileExplorerViewModel)Current).Path = dm.FullName;
-                    Navigation.Add(((FileExplorerViewModel)Current).Path + "\\", ((FileExplorerViewModel)Current).Name);
-                    Load(((FileExplorerViewModel)Current).Path + "\\");
-                }
-                break;
-            case DriveModel driveModel:
-                if (driveModel.FullName.ToLower() == ((FileExplorerViewModel)Current).Path.ToLower())
-                {
-                    Load(driveModel.FullName);
-                }
-                else
-                {
-                    ((FileExplorerViewModel)Current).Name = driveModel.Name;
-                    ((FileExplorerViewModel)Current).Path = driveModel.FullName;
-                    Navigation.Add(((FileExplorerViewModel)Current).Path, ((FileExplorerViewModel)Current).Name);
-                    ((FileExplorerViewModel)Current).Load(((FileExplorerViewModel)Current).Path);
-                }
-                break;
-            case string path:
-                if (path.ToLower() == ((FileExplorerViewModel)Current).Path.ToLower())
-                {
-                    Load(path + "\\");
-                }
-                else
-                {
-                    Navigation.Add(path + "\\", path.Split("\\").Last());
-                    Load(path + "\\");
+            Init(fileExplorerViewModel);
 
-                }
-                break;
-               
+            var obj = Storage.GenericCollection.FindById(Locale.Locale.Storage_Object_Names_Computer);
+            Navigation = new Navigation(obj.FullName, obj.Name);
 
-            case ObservableCollection<FileSystemModel> SelectedModels:
-                ((FileExplorerViewModel)Current).OpenCommand.Execute();
-                break;
+            var CURR = Navigation.Current;
+            ((IExplorer)FileExplorerViewModel).CurrentModel = FileSystemModel.Create(obj);
+            ((IExplorer)FileExplorerViewModel).Path = CURR.Path;
+            ((IExplorer)FileExplorerViewModel).Name = CURR.Name;
+            
+            Load(CURR.Path);
+
+            Navigation.Navigated += Navigation_Navigated;
         }
-    }
-    private void OnClosing(object parameter)
-    {
-        System.Diagnostics.Process.GetCurrentProcess().Kill();
-    }
-    private void OnCopy(object parameter)
-    {
-        
-    }
-    private void OnPaste(object parameter)
-    {
-        
-    }
 
-    private bool OnCanGoBack()
-    {
-        return Navigation.CanGoBack;
-    }
-    private void OnGoBack()
-    {
-        Navigation.GoBack();
-        Load(Navigation.Current.Path);
-    }
-    private bool OnCanGoForward()
-    {
-        return Navigation.CanGoForward;
-    }
-    private void OnGoForward()
-    {
-        Navigation.GoForward();
-        Load(Navigation.Current.Path);
-    }
-    #endregion
+        public ExplorerViewModel()
+        {
 
-    #region Private Methods
-    private void Load(string p)
-    {
-        if(!p.ToLower().StartsWith("https:\\")
-            || !p.ToLower().StartsWith("https:\\"))
+        }
+
+        #endregion
+    
+        #region Commands
+        /// <summary>
+        /// Command for invoke GoBack method
+        /// </summary>
+        public DelegateCommand GoBackCommand { get; set; }
+
+        /// <summary>
+        /// Command for invoke GoForward method
+        /// </summary>
+        public DelegateCommand GoForwardCommand { get; set; }
+
+        /// <summary>
+        /// Command for invoke OnOpen method
+        /// </summary>
+        public DelegateCommand<object> OpenCommand { get; set; }
+        #endregion
+    
+        #region Commands Methods
+        public void OnOpen(object parameter)
+        {
+            switch (parameter)
+            {
+                case DirectoryModel dm:
+                    if (dm.FullName.ToLower() == Navigation.Current.Path.ToLower())
+                    {
+                        Load(dm.FullName + "\\");
+                    }
+                    else
+                    {
+                        ((IExplorer)Current).CurrentModel = dm;
+                        ((IExplorer)Current).Name = ((IExplorer)Current).CurrentModel.Name;
+                        ((IExplorer)Current).Path = ((IExplorer)Current).CurrentModel.FullName;
+                        Navigation.Add(((IExplorer)Current).Path + "\\", ((IExplorer)Current).Name);
+                        Load(((IExplorer)Current).Path + "\\");
+                    }
+                    break;
+                case DriveModel driveModel:
+                    if (driveModel.FullName.ToLower() == Navigation.Current.Path.ToLower())
+                    {
+                        Load(driveModel.FullName);
+                    }
+                    else
+                    {
+                        ((IExplorer)Current).CurrentModel = driveModel;
+                        ((IExplorer)Current).Name = ((IExplorer)Current).CurrentModel.Name;
+                        ((IExplorer)Current).Path = ((IExplorer)Current).CurrentModel.FullName;
+                        Navigation.Add(((IExplorer)Current).Path + "\\", ((IExplorer)Current).Name);
+                        Load(((IExplorer)Current).Path + "\\");
+                    }
+                    break;
+                case string path:
+                    if (path.ToLower() == Navigation.Current.Path.ToLower())
+                    {
+                        Load(path + "\\");
+                    }
+                    else
+                    {
+                        Navigation.Add(path + "\\", path.Split("\\").Last());
+                        Load(path + "\\");
+
+                    }
+                    break;
+                case StorageObjectModel storageObjectModel:
+                    if (storageObjectModel.FullName.ToLower() == Navigation.Current.Path.ToLower())
+                    {
+                        Load(storageObjectModel.FullName);
+                    }
+                    else
+                    {
+                        ((IExplorer)Current).CurrentModel = storageObjectModel;
+                        ((IExplorer)Current).Name = ((IExplorer)Current).CurrentModel.Name;
+                        ((IExplorer)Current).Path = ((IExplorer)Current).CurrentModel.FullName;
+                        Navigation.Add(((IExplorer)Current).Path + "\\", ((IExplorer)Current).Name);
+                        Load(((IExplorer)Current).Path + "\\");
+                    }
+                    break;
+                case StorageObject storageObject:
+                    var obj = FileSystemModel.Create(storageObject);
+                    OpenCommand.Execute(obj);
+                    break;
+
+                case ObservableCollection<FileSystemModel>:
+                    ((IFileExplorer)Current).OpenCommand.Execute();
+                    break;
+            }
+        }
+        private void OnClosing(object parameter)
+        {
+            System.Diagnostics.Process.GetCurrentProcess().Kill();
+        }
+        private void OnCopy(object parameter)
         {
             
-            if(Navigation.Current.PREVIOUS == null)
-            {
-                _fileExplorerViewModel.Name = Navigation.Current.Name;
-                _fileExplorerViewModel.Path = Navigation.Current.Path;
-                Current = _fileExplorerViewModel;
-                ((FileExplorerViewModel)Current).Load(p);
-            }
-            else
-            {
-                _fileExplorerViewModel.Name = Navigation.Current.Name;
-                _fileExplorerViewModel.Path = Navigation.Current.Path;
-                Current = _fileExplorerViewModel;
-                ((FileExplorerViewModel)Current).Load(p);
-            }
-            CurrentType = ExplorerModelType.FileView;
         }
-    }
-
-    private void Init()
-    {
-        _fileExplorerViewModel = new FileExplorerViewModel(this);
-        OpenCommand = new DelegateCommand<object>(OnOpen);
-        //Init Menu
+        private void OnPaste(object parameter)
         {
-            InitializeMenuItems();
-            var ch = Menu[2].Children[1] as CheckableMenuItemViewModel;
-            ch.IsChecked = true;
+            
         }
 
-        //Init Commands
+        private bool OnCanGoBack()
         {
-            GoBackCommand = new DelegateCommand(OnGoBack, OnCanGoBack);
-            GoForwardCommand = new DelegateCommand(OnGoForward, OnCanGoForward);
+            return Navigation.CanGoBack;
         }
-    }
-
-    private void InitializeMenuItems(IList<StorageObject>? list = null, MenuItemViewModel parent = null)
-    {
-
-        Menu.Add(new MenuItemViewModel
+        public void OnGoBack()
         {
-            Header = "File",
-            Children = new List<MenuItemViewModel>
-            {
-                new MenuItemViewModel
-                {
-                    Header = "Open",
-                    Command = new DelegateCommand<object>(OnOpen),
-                    CommandParameter = _fileExplorerViewModel.SelectedModels
-                },
-                new MenuItemViewModel
-                {
-                    Header = "Exit",
-                    Command = new DelegateCommand<object>(OnClosing)
-                }
-            }
-
-        });
-        Menu.Add(new MenuItemViewModel
+            Navigation.GoBack();
+            var CURR = Navigation.Current;
+            ((IExplorer)FileExplorerViewModel).Path = CURR.Path;
+            ((IExplorer)FileExplorerViewModel).Name = CURR.Name;
+            Load(((IExplorer)FileExplorerViewModel).Path);
+        }
+        private bool OnCanGoForward()
         {
-            Header = "Edit",
-            Children = new List<MenuItemViewModel>
-            {
-                new MenuItemViewModel
-                {
-                    Header = "Copy"
-                },
-                new MenuItemViewModel
-                {
-                    Header = "Paste"
-                }
-            }
-
-        });
-        Menu.Add(new MenuItemViewModel
+            return Navigation.CanGoForward;
+        }
+        private void OnGoForward()
         {
-            Header = "View",
-            Children = new List<MenuItemViewModel>
+            Navigation.GoForward();
+            var CURR = Navigation.Current;
+            ((IExplorer)FileExplorerViewModel).Path = CURR.Path;
+            ((IExplorer)FileExplorerViewModel).Name = CURR.Name;
+            Load(((IExplorer)FileExplorerViewModel).Path);
+        }
+        #endregion
+    
+        #region Private Methods
+        public virtual void Load(string p)
+        {
+            if(!p.ToLower().StartsWith("https:\\")
+                || !p.ToLower().StartsWith("https:\\"))
             {
                 
-                new CheckableMenuItemViewModel("Icons", Check, true, "View"),
-                new CheckableMenuItemViewModel("Details", Check, true, "View"),
-                new CheckableMenuItemViewModel("Checkable List Items", Check),
+                if(Navigation.Current.PREVIOUS == null)
+                {
+                    Current = FileExplorerViewModel;
+                    ((IFileExplorer)FileExplorerViewModel).Load(p);
+                }
+                else
+                {
+                    Current = FileExplorerViewModel;
+                    ((IFileExplorer)FileExplorerViewModel).Load(p);
+                }
+                CurrentType = ExplorerModelType.FileView;
             }
 
-        });
-        Menu.Add(new MenuItemViewModel
-        {
-            Header = "Favorites"
+            foreach (var plugin in Plugins) 
+                plugin.DoWork();
+        }
 
-        });
-        Menu.Add(new MenuItemViewModel
+        private void Init(IFileExplorer fileExplorerViewModel)
         {
-            Header = "Tools",
-            Children = new List<MenuItemViewModel>
+            _fileExplorerViewModel = fileExplorerViewModel;
+            _fileExplorerViewModel.ExplorerViewModel = this;
+            FileExplorerViewModel = _fileExplorerViewModel;
+            OpenCommand = new DelegateCommand<object>(OnOpen);
+
+            //Init Menu
             {
-                new MenuItemViewModel
+                InitializeMenuItems();
+                var ch = Menu[2].Children[1] as CheckableMenuItemViewModel;
+                ch.IsChecked = true;
+            }
+
+            //Init Commands
+            {
+                GoBackCommand = new DelegateCommand(OnGoBack, OnCanGoBack);
+                GoForwardCommand = new DelegateCommand(OnGoForward, OnCanGoForward);
+            }
+        }
+
+        private void InitializeMenuItems(IList<StorageObject>? list = null, MenuItemViewModel parent = null)
+        {
+
+            Menu.Add(new MenuItemViewModel
+            {
+                Header = "File",
+                Children = new List<MenuItemViewModel>
                 {
-                    Header = "Folder Options"
+                    new MenuItemViewModel
+                    {
+                        Header = "Open",
+                        Command = new DelegateCommand<object>(OnOpen),
+                        CommandParameter = _fileExplorerViewModel.SelectedModels
+                    },
+                    new MenuItemViewModel
+                    {
+                        Header = "Exit",
+                        Command = new DelegateCommand<object>(OnClosing)
+                    }
+                }
+
+            });
+            Menu.Add(new MenuItemViewModel
+            {
+                Header = "Edit",
+                Children = new List<MenuItemViewModel>
+                {
+                    new MenuItemViewModel
+                    {
+                        Header = "Copy"
+                    },
+                    new MenuItemViewModel
+                    {
+                        Header = "Paste"
+                    }
+                }
+
+            });
+            Menu.Add(new MenuItemViewModel
+            {
+                Header = "View",
+                Children = new List<MenuItemViewModel>
+                {
+                    
+                    new CheckableMenuItemViewModel("Icons", Check, true, "View"),
+                    new CheckableMenuItemViewModel("Details", Check, true, "View"),
+                    new CheckableMenuItemViewModel("Checkable List Items", Check),
+                }
+
+            });
+            Menu.Add(new MenuItemViewModel
+            {
+                Header = "Favorites"
+
+            });
+            Menu.Add(new MenuItemViewModel
+            {
+                Header = "Tools",
+                Children = new List<MenuItemViewModel>
+                {
+                    new MenuItemViewModel
+                    {
+                        Header = "Folder Options"
+                    }
+                }
+
+            });
+            Menu.Add(new MenuItemViewModel
+            {
+                Header = "Help",
+                Children = new List<MenuItemViewModel>
+                {
+                    new MenuItemViewModel
+                    {
+                        Header = "About Explorer"
+                    }
+                }
+
+            });
+
+            
+        }
+
+        private void Check(object? sender, PropertyChangedEventArgs e)
+        {
+            if (sender is CheckableMenuItemViewModel chk)
+            {
+                if (chk.Header == "Checkable List Items")
+                {
+                    if (Current is IFileExplorer fileExplorerViewModel)
+                    {
+                        FileExplorerViewModel.IsCheckableItems = (bool)chk.IsChecked;
+                    }
                 }
             }
+        }
 
-        });
-        Menu.Add(new MenuItemViewModel
+
+        private void Navigation_Navigated(object? sender, EventArgs e)
         {
-            Header = "Help",
-            Children = new List<MenuItemViewModel>
-            {
-                new MenuItemViewModel
-                {
-                    Header = "About Explorer"
-                }
-            }
+            GoBackCommand.RaiseCanExecuteChanged();
+            GoForwardCommand.RaiseCanExecuteChanged();
+        }
 
-        });
-
-        
+        public void OnGoBack(object obj)
+        {
+            GoBackCommand.Execute();
+        }
+        #endregion
     }
 
-    private void Check(object? sender, PropertyChangedEventArgs e)
+    public interface IExtensible
     {
-        if(sender is CheckableMenuItemViewModel chk)
-            if(chk.Header == "Checkable List Items")
-            {
-                if(Current is FileExplorerViewModel fileExplorerViewModel)
-                {
-                    fileExplorerViewModel.CheckableListItems = chk.IsChecked;
-                }
-            }
+        List<IPlugin> Plugins { get; set; }
     }
 
-
-    private void Navigation_Navigated(object? sender, EventArgs e)
+    public interface IExplorer
     {
-        GoBackCommand.RaiseCanExecuteChanged();
-        GoForwardCommand.RaiseCanExecuteChanged();
+        IFileSystemModel CurrentModel { get; set; }
+
+        /// <summary>
+        /// Path of current place
+        /// </summary>
+        string Path { get; set; }
+
+        /// <summary>
+        /// Name of current place
+        /// </summary>
+        string Name { get; set; }
     }
-    #endregion
 }
 
-public enum ExplorerModelType
-{
-    /// <summary>
-    /// File view present type
-    /// </summary>
-    FileView,
-
-    /// <summary>
-    /// Web view present type
-    /// </summary>
-    InternetView,
-
-    /// <summary>
-    /// Control pane present type
-    /// </summary>
-    ControlPaneView
-}

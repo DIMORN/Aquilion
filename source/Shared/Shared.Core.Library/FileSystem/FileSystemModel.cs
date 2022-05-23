@@ -1,6 +1,6 @@
-﻿namespace Shared.Core.Library.FileSystem;
-
-public class FileSystemModel : BindableBase, IFileSystemModel, ISelectable
+﻿namespace Shared.Core.Library.FileSystem
+{
+    public class FileSystemModel : BaseViewModel, IFileSystemModel, ISelectable
 {
     public string? Name { get; set; }
     public string? FullName { get; set; }
@@ -51,7 +51,7 @@ public class FileSystemModel : BindableBase, IFileSystemModel, ISelectable
         return $"{len:0.##} {Sizes[order]}";
     }
 }
-public sealed class StorageObjectModel : FileSystemModel
+    public sealed class StorageObjectModel : FileSystemModel
 {
     public StorageObjectModel(StorageObject obj, PropertyChangedEventHandler? selected = null)
     {
@@ -61,4 +61,6 @@ public sealed class StorageObjectModel : FileSystemModel
         PropertyChanged += selected;
         IsSelected = false;
     }
+}
+
 }

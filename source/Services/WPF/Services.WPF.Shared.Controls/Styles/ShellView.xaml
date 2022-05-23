@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sh="clr-namespace:Controls">
+    <LinearGradientBrush x:Key="TaskPane_Background"
+                         StartPoint="0,0"
+                         EndPoint="0.8,0.8">
+        <GradientStop Color="#C1C5D2" />
+        <GradientStop Color="#B5B7CB" Offset="1"/>
+    </LinearGradientBrush>
+
+    <ControlTemplate x:Key="ShellView" TargetType="UserControl">
+        <ContentPresenter/>
+    </ControlTemplate>
+</ResourceDictionary>

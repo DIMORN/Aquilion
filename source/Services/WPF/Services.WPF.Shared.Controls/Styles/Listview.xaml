@@ -1,0 +1,117 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+                    xmlns:dd="urn:gong-wpf-dragdrop"
+                    xmlns:wpf="clr-namespace:Services.WPF;assembly=Services.WPF"
+                    xmlns:dragDrop="clr-namespace:Services.WPF.DragDrop;assembly=Services.WPF">
+    
+
+    <ControlTemplate x:Key="Listview" TargetType="UserControl">
+        <Border CornerRadius="10,0,0,0" 
+                Background="White"
+                ClipToBounds="True">
+            <ListView x:Name="ListviewContainer" 
+                      BorderThickness="0"
+                      BorderBrush="Transparent"
+                      ItemsSource="{Binding Current.FileSystemCollection}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ItemContainerStyle="{DynamicResource ListviewItem_Style}"
+                      dd:DragDrop.IsDragSource="True"
+                      dd:DragDrop.IsDropTarget="True"        
+                      dd:DragDrop.DropHandler="{x:Static dragDrop:DropHandler.Instnace}"
+                      
+                      dd:DragDrop.UseDefaultDragAdorner="True"
+                      dd:DragDrop.UseDefaultEffectDataTemplate="True">
+                <ListView.ContextMenu>
+                    <ContextMenu ItemsSource="{Binding Current.ListViewContextMenu}"
+                                 Foreground="#FFFFFF">
+                        <ContextMenu.Resources>
+                            <Style TargetType="{x:Type MenuItem}">
+                                <Setter Property="Header" Value="{Binding Header}"/>
+                                <Setter Property="ToolBar.OverflowMode" Value="AsNeeded"/>
+                                <Setter Property="ItemsSource" Value="{Binding Children}"/>
+                                <Setter Property="Command" Value="{Binding Command}"/>
+                                <Setter Property="CommandParameter" Value="{Binding CommandParameter}"/>
+                                <Setter Property="IsCheckable" Value="{Binding IsCheckable}"/>
+                                <Setter Property="IsChecked" Value="{Binding IsChecked, Mode=TwoWay}"/>
+                            </Style>
+                        </ContextMenu.Resources>
+
+                    </ContextMenu>
+                </ListView.ContextMenu>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal"
+                                    Background="Transparent"
+                                    Width="205">
+                            <StackPanel.ToolTip>
+                                <ToolTip Content="{Binding}" Margin="-5">
+                                    <ToolTip.ContentTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="{DynamicResource PopupBackgroundBrush}"
+                                                    Background="{DynamicResource PopupBackgroundBrush}">
+                                                <StackPanel TextElement.Foreground="#FFFFFF">
+                                                    <TextBlock Text="{Binding FullName}"/>
+                                                    <ProgressBar Value="{Binding UsedPercentage}"
+                                                                 Width="120"
+                                                                 Height="5"
+                                                                 Visibility="{Binding UsedPercentage, Converter={wpf:NullToVisibleHiddenConverter}, ConverterParameter=hidden, FallbackValue=Collapsed}">
+                                                    </ProgressBar>
+                                                    <TextBlock Text="{Binding Size}"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ToolTip.ContentTemplate>
+                                </ToolTip>
+                            </StackPanel.ToolTip>
+                            <Image Height="48"
+                                           Width="48"
+                                           >
+                                <Image.Source>
+                                    <MultiBinding Converter="{wpf:ExtensionToIconConverter}"
+                                                  ConverterParameter="48">
+                                        <Binding/>
+                                        <Binding Path="Extension"/>
+                                    </MultiBinding>
+                                </Image.Source>
+
+                            </Image>
+                            <StackPanel Margin="8,0" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Name}"
+                                               FontWeight="Bold"
+                                           />
+                                <TextBlock Text="{Binding Extension}"
+                                               Foreground="Gray"/>
+                                <TextBlock Text="{Binding Size}"
+                                               Foreground="Gray"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="MouseDoubleClick">
+                        <b:InvokeCommandAction Command="{Binding Current.OpenCommand}"
+                                               CommandParameter="{Binding Current.SelectedModels}"/>
+                    </b:EventTrigger>
+                    <b:EventTrigger EventName="MouseDown">
+                        <b:ChangePropertyAction TargetName="ListviewContainer"
+                                                PropertyName="SelectedItem"
+                                                Value="{x:Null}"/>
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
+            </ListView>
+        </Border>
+        <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding Current.IsCheckableItems}" Value="True">
+                <Setter TargetName="ListviewContainer" Property="ItemContainerStyle" Value="{DynamicResource ListviewItem_Checkable_Style}"/>
+            </DataTrigger>
+
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+</ResourceDictionary>

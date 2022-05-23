@@ -1,14 +1,26 @@
-﻿namespace Services.Navigation;
-
-public class NavigationObject : BindableBase
+﻿namespace Services.Navigation
 {
-    public NavigationObject? PREVIOUS { get; set; }
-    public NavigationObject? NEXT { get; set; }
-    public string? Name { get; set; }
-    public string? Path { get; set; }
-    public NavigationObject(string path, string name)
+    public class NavigationObject : BaseViewModel
     {
-        Name = name;
-        Path = path;
+        private string? _name;
+
+        public NavigationObject? PREVIOUS { get; set; }
+        public NavigationObject? NEXT { get; set; }
+
+        public string? Name
+        {
+            get => _name;
+            set
+            {
+                _name = value;
+                OnPropertyChanged();
+            }
+        }
+        public string? Path { get; set; }
+        public NavigationObject(string path, string name)
+        {
+            Name = name;
+            Path = path;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿global using System;
 global using System.Collections.Generic;
 global using System.Collections.ObjectModel;
+global using System.IO;
 global using System.Linq;
 global using System.Text;
 global using System.Threading.Tasks;
@@ -15,3 +16,5 @@ global using Services.Storage;
 global using Shared.Core.Library.Selectable;
 global using System.Data;
 global using Shared.Core.Library.Menu;
+global using Shared.ViewModels;
+global using Services.HelpSupport;

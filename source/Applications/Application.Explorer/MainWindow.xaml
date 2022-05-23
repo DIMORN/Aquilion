@@ -1,0 +1,31 @@
+﻿<Window x:Class="Application.Explorer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Application.Explorer" 
+        xmlns:controls="clr-namespace:Controls;assembly=Controls"
+        xmlns:controlsExplorer="clr-namespace:Controls.Explorer;assembly=Controls"
+        xmlns:wpf="clr-namespace:Services.WPF;assembly=Services.WPF"
+        mc:Ignorable="d"
+        
+        Title="{Binding Current.Name}" Height="450" Width="800"
+        Style="{DynamicResource Style_Window_Default}"
+        WindowStyle="None"
+        AllowsTransparency="True">
+    <Window.Icon>
+        <MultiBinding Converter="{wpf:ExtensionToIconConverter}"
+                                 ConverterParameter="16">
+            <Binding Path="Current.CurrentModel"/>
+            <Binding Path="Current.CurrentModel.Extension"/>
+        </MultiBinding>
+    </Window.Icon>
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo Description="{Binding Current.Path}">
+        </TaskbarItemInfo>
+    </Window.TaskbarItemInfo>
+    <DockPanel LastChildFill="True">
+        <controlsExplorer:ToolBar DockPanel.Dock="Top"/>
+        <controls:ShellView/>
+    </DockPanel>
+</Window>

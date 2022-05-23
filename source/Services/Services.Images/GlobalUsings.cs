@@ -6,5 +6,5 @@ global using System.Threading.Tasks;
 global using Shared.Locale;
 global using Services.Storage;
 global using Shared.Core.Library.FileSystem;
-
+global using Shared.Core.Library.Menu;
 

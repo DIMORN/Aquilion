@@ -1,6 +1,6 @@
-﻿namespace Shared.Core.Library.FileSystem;
-
-public sealed class FileModel : FileSystemModel
+﻿namespace Shared.Core.Library.FileSystem
+{
+    public sealed class FileModel : FileSystemModel
 {
     public string? Size { get; set; }
     public long? LongSize { get; set; }
@@ -18,6 +18,7 @@ public sealed class FileModel : FileSystemModel
         Extension = info.Extension.ToLower() switch
         {
             ".exe" => Locale.Locale.FileSystem_Extension_EXE,
+            ".msi" => Locale.Locale.FileSystem_Extension_MSI,
             ".txt" => Locale.Locale.FileSystem_Extension_TXT,
             ".rtf" => Locale.Locale.FileSystem_Extension_RTF,
             ".jpg" => Locale.Locale.FileSystem_Extension_JPG,
@@ -46,4 +47,7 @@ public sealed class FileModel : FileSystemModel
         PropertyChanged += selected;
     }
 }
+
+}
+
 

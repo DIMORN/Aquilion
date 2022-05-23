@@ -1,12 +1,13 @@
-﻿namespace Services.Themes;
-
-public class ThemeObject
+﻿namespace Services.Themes
 {
-    public string? Key { get; set; }
-    public Assembly? Assembly { get; set; }
-    public ThemeObject(string? key, Assembly? assembly)
+    public class ThemeObject
     {
-        Key = key;
-        Assembly = assembly;
+        public string? Key { get; set; }
+        public Assembly? Assembly { get; set; }
+        public ThemeObject(string? key, Assembly? assembly)
+        {
+            Key = key;
+            Assembly = assembly;
+        }
     }
 }

@@ -1,19 +1,20 @@
-﻿namespace Shared.Core.Library.FileSystem;
-
-public sealed class DirectoryModel : FileSystemModel
+﻿namespace Shared.Core.Library.FileSystem
 {
-    public DirectoryModel(DirectoryInfo info, PropertyChangedEventHandler? selected = null)
+    public sealed class DirectoryModel : FileSystemModel
     {
-        Name = info.Name;
-        FullName = info.FullName;
-
-        Date = info.LastWriteTimeUtc.ToString();
-
-        Extension = Locale.Locale.FileSystem_Extension_Directory;
-
-        IsSelected = false;
-
-        PropertyChanged += selected;
+        public DirectoryModel(DirectoryInfo info, PropertyChangedEventHandler? selected = null)
+        {
+            Name = info.Name;
+            FullName = info.FullName;
+    
+            Date = info.LastWriteTimeUtc.ToString();
+    
+            Extension = Locale.Locale.FileSystem_Extension_Directory;
+    
+            IsSelected = false;
+    
+            PropertyChanged += selected;
+        }
     }
 }
 

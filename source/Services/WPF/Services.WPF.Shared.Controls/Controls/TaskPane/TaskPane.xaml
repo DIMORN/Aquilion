@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="Controls.TaskPane"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:wpf="clr-namespace:Services.WPF;assembly=Services.WPF"
+             mc:Ignorable="d" 
+             Template="{DynamicResource TaskPane}">
+    <ScrollViewer Padding="10"
+                      VerticalScrollBarVisibility="Auto">
+        <StackPanel VerticalAlignment="Stretch">
+
+            <ItemsControl ItemsSource="{Binding FileExplorerViewModel.Tasks}"
+                      Background="Transparent"
+                      BorderThickness="0"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Command="{Binding Command}"
+                                    CommandParameter="{Binding CommandParameter}"
+                                Background="Transparent"
+                                BorderThickness="0">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <ContentPresenter Cursor="Hand"
+                                                      HorizontalAlignment="Left"/>
+                                </ControlTemplate>
+                            </Button.Template>
+                            <StackPanel Margin="0,5,0,0" Orientation="Horizontal"
+                                    >
+                                <Border >
+                                    <Image Width="16"
+                                   Height="16"
+                                   Source="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ContentPresenter}, Converter={wpf:TaskHeaderToIconConverter}, ConverterParameter=16}">
+
+                                    </Image>
+                                </Border>
+                                <TextBlock Margin="5,0,0,0" Text="{Binding Header, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"/>
+                            </StackPanel>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.ContainerStyle>
+                            <Style TargetType="GroupItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <Expander Width="190" Style="{DynamicResource TaskModuleExpander}" 
+                                                      Header="{Binding Name}"
+                                                      Margin="0,5,0,0"
+                                                      IsExpanded="True">
+                                                <ItemsPresenter Margin="5,-5,5,5" />
+                                            </Expander>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                </ItemsControl.GroupStyle>
+
+            </ItemsControl>
+            <Expander VerticalAlignment="Top" Style="{DynamicResource TaskModuleExpander}" 
+                      Header="Details"
+                      Margin="0,5,0,0"
+                      IsExpanded="True"
+                      Visibility="{Binding FileExplorerViewModel.SelectedModels[0], Converter={wpf:NullToVisibleHiddenConverter}, ConverterParameter=hidden, FallbackValue=Collapsed}">
+                <UserControl Margin="5" Template="{DynamicResource MetaData_GenericFile}">
+                    <UserControl.Style>
+                        <Style TargetType="UserControl">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding FileExplorerViewModel.SelectedModels[0].Extension}"
+                                             Value="File folder">
+                                    <Setter Property="Template" Value="{DynamicResource MetaData_GenericFile}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding FileExplorerViewModel.SelectedModels[0].Extension}"
+                                             Value="System file">
+                                    <Setter Property="Template" Value="{DynamicResource MetaData_GenericFile}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </UserControl.Style>
+                </UserControl>
+            </Expander>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

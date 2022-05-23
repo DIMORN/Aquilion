@@ -1,7 +1,4 @@
-﻿using System;
-using Shared.Core.Library.Selectable;
-
-namespace Shared.Core.Library.FileSystem
+﻿namespace Shared.Core.Library.FileSystem
 {
     public interface IFileSystemModel : ISelectable
     {
